@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Collection Requests | FlowerCycle</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css"></head>
+<body class="dashboard-body">
+<aside class="sidebar">
+<a class="brand" href="index.html"><span class="brand-mark">✿</span><span>Flower<span class="brand-accent">Cycle</span><small>MANAGEMENT</small></span></a>
+<div class="side-label">WORKSPACE</div>
+<a class="side-link" href="dashboard.html">▦ &nbsp; Overview</a>
+<a class="side-link selected" href="collection-requests.html">♧ &nbsp; Collection requests</a>
+<a class="side-link" href="waste-records.html">♻ &nbsp; Waste records</a>
+<a class="side-link" href="eco-products.html">✿ &nbsp; Eco-products</a>
+<a class="side-link" href="reports.html">▤ &nbsp; Reports</a>
+<div class="sidebar-bottom"><a class="side-link" href="index.html">↩ &nbsp; Back to website</a></div>
+</aside>
+<main class="module-main">
+  <header class="module-header">
+    <div><span class="muted">Workspace / Collection requests</span><h1>Collection requests</h1><p class="muted">Create and manage flower waste pickup requests.</p></div>
+    <div class="module-actions"><input class="search-input" id="searchRequests" type="search" placeholder="Search temple or flower..."><select class="filter-select" id="statusFilter"><option value="all">All statuses</option><option>Pending</option><option>Collected</option><option>Processing</option><option>Completed</option></select><button class="primary-small" id="openAddModal">+ Add request</button></div>
+  </header>
+  <section class="module-stats">
+    <article class="module-stat"><span>Total requests</span><strong id="totalCount">0</strong></article>
+    <article class="module-stat"><span>Pending pickup</span><strong id="pendingCount">0</strong></article>
+    <article class="module-stat"><span>Total requested waste</span><strong id="totalKg">0 kg</strong></article>
+  </section>
+  <section class="module-panel">
+    <table><thead><tr><th>Temple</th><th>Flower type</th><th>Quantity</th><th>Pickup date</th><th>Status</th><th>Actions</th></tr></thead><tbody id="requestTable"></tbody></table>
+    <div class="empty-state" id="emptyState" hidden>No requests found. Add your first collection request.</div>
+  </section>
+</main>
+<div class="modal-backdrop" id="requestModal"><section class="request-modal">
+  <div class="modal-head"><h2 id="modalTitle">Add collection request</h2><button class="close-modal" id="closeModal" aria-label="Close">×</button></div>
+  <form id="requestForm">
+    <input type="hidden" id="requestId">
+    <div class="form-grid">
+      <div class="form-field full-width"><label for="templeName">Temple name *</label><input id="templeName" required maxlength="70" placeholder="e.g. Shiv Temple"></div>
+      <div class="form-field"><label for="flowerType">Flower type *</label><select id="flowerType" required><option value="">Select flower</option><option>Marigold</option><option>Rose</option><option>Jasmine</option><option>Mixed</option><option>Other</option></select></div>
+      <div class="form-field"><label for="quantity">Quantity (kg) *</label><input id="quantity" type="number" min="0.1" step="0.1" required placeholder="e.g. 25"></div>
+      <div class="form-field"><label for="pickupDate">Pickup date *</label><input id="pickupDate" type="date" required></div>
+      <div class="form-field"><label for="requestStatus">Status</label><select id="requestStatus"><option>Pending</option><option>Collected</option><option>Processing</option><option>Completed</option></select></div>
+      <div class="form-field full-width"><label for="requestNotes">Notes (optional)</label><textarea id="requestNotes" placeholder="Pickup instructions or additional details"></textarea></div>
+    </div>
+    <div class="modal-footer"><button type="button" class="cancel-btn" id="cancelModal">Cancel</button><button class="primary-small" type="submit">Save request</button></div>
+  </form>
+</section></div><div class="toast" id="toast"></div>
+<script src="js/collection-requests.js"></script></body></html>

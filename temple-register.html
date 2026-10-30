@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Temple Registration | FlowerCycle</title><link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet"><link rel="stylesheet" href="css/style.css"></head>
+<body class="auth-body"><a class="back-home" href="index.html">← Back to home</a><main class="auth-layout">
+<section class="auth-visual"><div class="auth-flower">✿</div><span class="eyebrow light">JOIN THE FLOWERCYCLE NETWORK</span><h1>Let every offering<br>find a <em>new purpose.</em></h1><p>Register your temple to request flower waste collection and follow its journey towards eco-friendly products.</p></section>
+<section class="auth-panel"><a class="brand" href="index.html"><span class="brand-mark">✿</span><span>Flower<span class="brand-accent">Cycle</span><small>WASTE TO WORTH</small></span></a><h2>Temple registration</h2><p class="muted">Create a temple account to get started.</p>
+<form id="templeRegisterForm">
+<label for="templeName">Temple name *</label><input id="templeName" required maxlength="80" placeholder="Enter temple name">
+<label for="contactPerson">Contact person *</label><input id="contactPerson" required maxlength="70" placeholder="Name of temple representative">
+<label for="templeEmail">Email address *</label><input id="templeEmail" type="email" required placeholder="temple@example.com">
+<label for="templePhone">Phone number *</label><input id="templePhone" type="tel" required pattern="[0-9+\-\s]{10,15}" placeholder="10-digit contact number">
+<label for="templeAddress">Temple address *</label><textarea id="templeAddress" required maxlength="220" placeholder="Area, city and PIN code"></textarea>
+<label for="templePassword">Create password *</label><input id="templePassword" type="password" minlength="6" required placeholder="At least 6 characters">
+<button class="btn btn-primary full" type="submit">Create temple account <span>→</span></button>
+<p class="form-note" id="registerMessage">Demo registration: details are saved only in this browser until backend integration.</p>
+<p class="form-note">Already registered? <a href="login.html" style="color:#236b45;font-weight:700">Sign in</a></p>
+</form></section></main><script src="js/temple-auth.js"></script></body></html>

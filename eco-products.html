@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Eco-products | FlowerCycle</title><link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet"><link rel="stylesheet" href="css/style.css"></head>
+<body class="dashboard-body">
+<aside class="sidebar"><a class="brand" href="index.html"><span class="brand-mark">✿</span><span>Flower<span class="brand-accent">Cycle</span><small>MANAGEMENT</small></span></a><div class="side-label">WORKSPACE</div>
+<a class="side-link" href="dashboard.html">▦ &nbsp; Overview</a><a class="side-link" href="collection-requests.html">♧ &nbsp; Collection requests</a><a class="side-link" href="waste-records.html">♻ &nbsp; Waste records</a><a class="side-link selected" href="eco-products.html">✿ &nbsp; Eco-products</a><a class="side-link" href="reports.html">▤ &nbsp; Reports</a><div class="sidebar-bottom"><a class="side-link" href="index.html">↩ &nbsp; Back to website</a></div></aside>
+<main class="module-main">
+<header class="module-header"><div><span class="muted">Workspace / Eco-products</span><h1>Eco-product inventory</h1><p class="muted">Record products made from processed flower waste and manage available stock.</p></div><div class="module-actions"><input class="search-input" id="productSearch" type="search" placeholder="Search product..."><button class="primary-small" id="addProduct">+ Add product</button></div></header>
+<section class="waste-stat-grid">
+<article class="waste-stat"><span>Product types</span><strong id="typeCount">0</strong></article>
+<article class="waste-stat"><span>Total units recorded</span><strong id="unitCount">0</strong></article>
+<article class="waste-stat"><span>Total stock value</span><strong id="stockValue">₹0</strong></article>
+<article class="waste-stat"><span>Low stock items</span><strong id="lowStock">0</strong></article>
+</section>
+<section class="module-panel"><div class="panel-head"><div><h2>Product inventory</h2><p class="muted">Sample entries for the academic prototype.</p></div><select class="filter-select" id="categoryFilter"><option value="all">All categories</option><option>Incense</option><option>Compost</option><option>Organic colours</option><option>Decorative items</option></select></div>
+<div class="table-wrap"><table><thead><tr><th>Product</th><th>Category</th><th>Quantity</th><th>Unit price</th><th>Stock value</th><th>Actions</th></tr></thead><tbody id="productRows"></tbody></table></div><div class="empty-state" id="productEmpty" hidden>No products found. Add your first eco-product.</div></section>
+</main>
+<div class="modal-backdrop" id="productModal"><section class="request-modal"><div class="modal-head"><h2 id="productModalTitle">Add eco-product</h2><button class="close-modal" id="closeProduct">×</button></div><form id="productForm"><input type="hidden" id="productId"><div class="form-grid">
+<div class="form-field full-width"><label for="productName">Product name *</label><input id="productName" required maxlength="70" placeholder="e.g. Flower-based incense sticks"></div>
+<div class="form-field"><label for="productCategory">Category *</label><select id="productCategory" required><option value="">Select category</option><option>Incense</option><option>Compost</option><option>Organic colours</option><option>Decorative items</option></select></div>
+<div class="form-field"><label for="productQuantity">Available quantity (units/kg) *</label><input id="productQuantity" type="number" min="0" step="1" required placeholder="e.g. 25"></div>
+<div class="form-field"><label for="productPrice">Unit price (₹) *</label><input id="productPrice" type="number" min="0" step="0.01" required placeholder="e.g. 50"></div>
+<div class="form-field"><label for="productDate">Date added *</label><input id="productDate" type="date" required></div>
+<div class="form-field full-width"><label for="productDescription">Description (optional)</label><textarea id="productDescription" placeholder="Short product details"></textarea></div>
+</div><div class="modal-footer"><button type="button" class="cancel-btn" id="cancelProduct">Cancel</button><button type="submit" class="primary-small">Save product</button></div></form></section></div><div class="toast" id="productToast"></div>
+<script src="js/eco-products.js"></script></body></html>

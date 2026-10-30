@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Reports & Analytics | FlowerCycle</title><link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet"><link rel="stylesheet" href="css/style.css"></head>
+<body class="dashboard-body">
+<aside class="sidebar"><a class="brand" href="index.html"><span class="brand-mark">✿</span><span>Flower<span class="brand-accent">Cycle</span><small>MANAGEMENT</small></span></a><div class="side-label">WORKSPACE</div>
+<a class="side-link" href="dashboard.html">▦ &nbsp; Overview</a><a class="side-link" href="collection-requests.html">♧ &nbsp; Collection requests</a><a class="side-link" href="waste-records.html">♻ &nbsp; Waste records</a><a class="side-link" href="eco-products.html">✿ &nbsp; Eco-products</a><a class="side-link selected" href="reports.html">▤ &nbsp; Reports</a><div class="sidebar-bottom"><a class="side-link" href="index.html">↩ &nbsp; Back to website</a></div></aside>
+<main class="module-main">
+<header class="module-header"><div><span class="muted">Workspace / Reports</span><h1>Reports & analytics</h1><p class="muted">A summary of collection, segregation and eco-product inventory records.</p></div><div class="module-actions"><button class="primary-small" id="refreshReports">↻ Refresh data</button><button class="outline-btn" id="exportReport">↓ Export CSV</button></div></header>
+<div class="report-note">ⓘ Figures are calculated from the records saved in this browser. Initial sample entries are illustrative project data.</div>
+<section class="waste-stat-grid report-stat-grid">
+<article class="waste-stat"><span>Collection requests</span><strong id="rRequests">0</strong></article>
+<article class="waste-stat"><span>Flower waste received</span><strong id="rReceived">0 kg</strong></article>
+<article class="waste-stat"><span>Usable flower material</span><strong id="rUsable">0 kg</strong></article>
+<article class="waste-stat"><span>Eco-product units</span><strong id="rUnits">0</strong></article>
+</section>
+<section class="report-grid">
+<article class="module-panel"><div class="report-card-head"><div><h2>Waste segregation</h2><p class="muted">Received flower waste split by recorded material.</p></div></div><div class="report-legend"><span><i class="legend-green"></i>Usable flowers</span><span><i class="legend-gold"></i>Other material</span></div><div class="stacked-bar"><span id="usableBar"></span><span id="otherBar"></span></div><div class="chart-total" id="segregationSummary">No waste records yet</div></article>
+<article class="module-panel"><div class="report-card-head"><div><h2>Collection request status</h2><p class="muted">Requests grouped by current status.</p></div></div><div id="statusBreakdown" class="breakdown-list"></div></article>
+<article class="module-panel wide-report"><div class="report-card-head"><div><h2>Eco-product inventory</h2><p class="muted">Available quantity by product category.</p></div></div><div id="categoryBars" class="category-bars"></div></article>
+</section>
+<section class="module-panel report-table-panel"><div class="panel-head"><div><h2>Recent activity</h2><p class="muted">Latest records saved in this browser.</p></div></div><div class="table-wrap"><table><thead><tr><th>Record</th><th>Source / product</th><th>Details</th><th>Status / category</th></tr></thead><tbody id="activityRows"></tbody></table></div><div id="activityEmpty" class="empty-state" hidden>No activity records available.</div></section>
+</main><div class="toast" id="reportToast"></div><script src="js/reports.js"></script></body></html>
