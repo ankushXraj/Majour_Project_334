@@ -7,6 +7,11 @@ const samples=[
 let records=JSON.parse(localStorage.getItem(KEY)||"null");
 if(records===null){records=samples;localStorage.setItem(KEY,JSON.stringify(records));}
 const $=id=>document.getElementById(id), modal=$("wasteModal"), form=$("wasteForm");
+const prefillParams=new URLSearchParams(location.search);
+const prefillRequest=prefillParams.get("requestId")?{
+ id:prefillParams.get("requestId"),source:prefillParams.get("source")||"",flower:prefillParams.get("flower")||"",
+ received:Number(prefillParams.get("received")||0),date:prefillParams.get("date")||new Date().toISOString().slice(0,10)
+}:null;
 function persist(){localStorage.setItem(KEY,JSON.stringify(records));render();}
 function esc(s){return String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));}
 function render(){
@@ -26,8 +31,10 @@ form.addEventListener("submit",e=>{
  e.preventDefault();const received=Number($("wReceivedInput").value),usable=Number($("wUsableInput").value),other=Number($("wOtherInput").value);
  if(usable+other>received+0.00001){toast("Usable flowers + other material cannot exceed received quantity.");return;}
  const id=$("wasteId").value||"WR"+Date.now().toString().slice(-8);
- const rec={id,source:$("wSource").value.trim(),flower:$("wFlower").value,received,usable,other,date:$("wDate").value,stage:$("wStage").value,notes:$("wNotes").value.trim()};
- const i=records.findIndex(x=>x.id===id);if(i>=0)records[i]=rec;else records.unshift(rec);persist();close();toast(i>=0?"Waste record updated.":"Waste record added.");
+ const rec={id,source:$("wSource").value.trim(),flower:$("wFlower").value,received,usable,other,date:$("wDate").value,stage:$("wStage").value,notes:$("wNotes").value.trim(),sourceRequestId:prefillRequest?.id||undefined};
+ const i=records.findIndex(x=>x.id===id);if(i>=0)records[i]=rec;else records.unshift(rec);persist();close();
+ if(prefillRequest){history.replaceState({}, "", location.pathname);}
+ toast(i>=0?"Waste record updated.":"Waste record added.");
 });
 $("searchWaste").addEventListener("input",render);$("wasteStatusFilter").addEventListener("change",render);
 $("wasteTable").addEventListener("click",e=>{
@@ -37,3 +44,22 @@ $("wasteTable").addEventListener("click",e=>{
 });
 $("wasteTable").addEventListener("change",e=>{const id=e.target.dataset.stage;if(!id)return;const r=records.find(x=>x.id===id);if(r){r.stage=e.target.value;persist();toast("Processing stage updated.");}});
 render();
+
+if(prefillRequest){
+ const already=records.some(r=>r.sourceRequestId===prefillRequest.id);
+ if(already){alert("A waste record already exists for this collection request.");}
+ else{
+  open();
+  $("wSource").value=prefillRequest.source;
+  $("wFlower").value=prefillRequest.flower;
+  $("wReceivedInput").value=prefillRequest.received;
+  $("wUsableInput").value="";
+  $("wOtherInput").value="";
+  $("wDate").value=prefillRequest.date;
+  $("wNotes").value="Created from collection request "+prefillRequest.id+". Enter the segregation quantities before saving.";
+  const note=document.createElement("p");
+  note.className="form-note";
+  note.textContent="Linked collection request: "+prefillRequest.id+". Enter usable flowers and other material to complete this waste record.";
+  form.insertBefore(note,form.firstChild.nextSibling);
+ }
+}

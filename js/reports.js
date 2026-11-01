@@ -16,7 +16,7 @@ function render(){
  ];
  if(localStorage.getItem("flowerCycleWasteRecords")===null)localStorage.setItem("flowerCycleWasteRecords",JSON.stringify(demoWaste));
  if(localStorage.getItem("flowerCycleProducts")===null)localStorage.setItem("flowerCycleProducts",JSON.stringify(demoProducts));
- const requests=read("flowerCycleRequests"),waste=read("flowerCycleWasteRecords"),products=read("flowerCycleProducts");  read("flowerCycleRequests");
+ const requests=read("flowerCycleRequests"),waste=read("flowerCycleWasteRecords"),products=read("flowerCycleProducts");
  const sum=(arr,key)=>arr.reduce((a,x)=>a+Number(x[key]||0),0);
  const received=sum(waste,"received"),usable=sum(waste,"usable"),other=sum(waste,"other"),units=sum(products,"quantity");
  $("rRequests").textContent=requests.length;$("rReceived").textContent=received.toLocaleString()+" kg";$("rUsable").textContent=usable.toLocaleString()+" kg";$("rUnits").textContent=units.toLocaleString();

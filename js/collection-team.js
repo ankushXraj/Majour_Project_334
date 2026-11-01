@@ -5,6 +5,13 @@ function esc(s){return String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&l
 function toast(s){$("teamToast").textContent=s;$("teamToast").style.display="block";setTimeout(()=>$("teamToast").style.display="none",2200);}
 function render(){
  requests=JSON.parse(localStorage.getItem(KEY)||"[]");
+ const adminKey="flowerCycleRequests",admin=JSON.parse(localStorage.getItem(adminKey)||"[]");
+ requests.forEach(r=>{
+  const existing=admin.find(a=>a.id===r.id);
+  const linked={id:r.id,temple:r.temple,flower:r.flower,quantity:Number(r.quantity),date:r.date,status:r.status,notes:r.notes||"",origin:"templePortal",contact:r.contact||"",address:r.address||"",sourceRequestId:r.id};
+  if(existing)Object.assign(existing,linked);else admin.unshift(linked);
+ });
+ localStorage.setItem(adminKey,JSON.stringify(admin));
  const q=$("teamSearch").value.trim().toLowerCase(),filter=$("teamFilter").value;
  const list=requests.filter(r=>(r.temple+" "+r.flower).toLowerCase().includes(q)&&(filter==="all"||r.status===filter));
  $("teamTotal").textContent=requests.length;
@@ -16,7 +23,16 @@ function render(){
  if(selectedId){const r=requests.find(x=>x.id===selectedId);if(r)showDetails(r);}
 }
 function showDetails(r){selectedId=r.id;$("teamDetails").innerHTML=`<div class="team-detail-grid"><div><small>Request ID</small><b>${esc(r.id)}</b></div><div><small>Temple</small><b>${esc(r.temple)}</b></div><div><small>Flower type</small><b>${esc(r.flower)}</b></div><div><small>Estimated quantity</small><b>${r.quantity} kg</b></div><div><small>Pickup date</small><b>${esc(r.date)}</b></div><div><small>Contact</small><b>${esc(r.contact)}</b></div><div class="detail-wide"><small>Pickup address</small><b>${esc(r.address)}</b></div><div class="detail-wide"><small>Additional instructions</small><b>${esc(r.notes||"No additional instructions.")}</b></div></div>`;}
-$("teamRows").addEventListener("change",e=>{const id=e.target.dataset.update;if(!id)return;const r=requests.find(x=>x.id===id);if(r){r.status=e.target.value;localStorage.setItem(KEY,JSON.stringify(requests));render();toast("Request status updated.");}});
+$("teamRows").addEventListener("change",e=>{
+ const id=e.target.dataset.update;if(!id)return;
+ const r=requests.find(x=>x.id===id);
+ if(r){
+  r.status=e.target.value;localStorage.setItem(KEY,JSON.stringify(requests));
+  const adminKey="flowerCycleRequests",admin=JSON.parse(localStorage.getItem(adminKey)||"[]"),a=admin.find(x=>x.id===id);
+  if(a){a.status=r.status;localStorage.setItem(adminKey,JSON.stringify(admin));}
+  render();toast("Request status updated.");
+ }
+});
 $("teamRows").addEventListener("click",e=>{const id=e.target.dataset.view;if(id){const r=requests.find(x=>x.id===id);if(r)showDetails(r);}});
 $("teamSearch").addEventListener("input",render);$("teamFilter").addEventListener("change",render);$("teamRefresh").addEventListener("click",()=>{render();toast("Requests refreshed.");});
 render();

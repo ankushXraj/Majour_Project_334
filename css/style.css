@@ -65,3 +65,7 @@
 /* Collection team portal */
 .team-details{font-size:12px;color:var(--deep)}.team-detail-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:17px}.team-detail-grid div{display:flex;flex-direction:column;gap:5px}.team-detail-grid small{color:var(--muted);font-size:10px}.team-detail-grid b{font-weight:600}.team-detail-grid .detail-wide{grid-column:1/-1}
 @media(max-width:700px){.team-detail-grid{grid-template-columns:1fr 1fr}}
+
+/* Admin workflow integration */
+.row-actions{flex-wrap:wrap;gap:6px}
+.row-actions .action-btn{white-space:nowrap}
