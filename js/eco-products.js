@@ -5,7 +5,7 @@ const modal = $("productModal"),
 let products = [];
 
 function esc(s) {
-  return String(s).replace(/[&<>"']/g, (c) =>
+  return String(s ?? "").replace(/[&<>"']/g, (c) =>
     ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c])
   );
 }
@@ -28,10 +28,11 @@ async function render() {
     products = result.data;
 
     $("productRows").innerHTML = products
-      .map(
-        (p) =>
-          `<tr><td><b>${esc(p.name)}</b><br><small class="muted">${esc(p.productId)}</small></td><td><span class="record-type">${esc(p.category)}</span></td><td>${Number(p.quantity).toLocaleString()}</td><td>₹${Number(p.price).toFixed(2)}</td><td>₹${(Number(p.quantity) * Number(p.price)).toLocaleString("en-IN", { maximumFractionDigits: 2 })}</td><td><div class="row-actions"><button class="action-btn" data-edit-product="${p._id}">Edit</button><button class="action-btn" data-delete-product="${p._id}">Delete</button></div></td></tr>`
-      )
+      .map((p) => {
+        const cost = Number(p.costPrice || 0);
+        const sold = Number(p.soldQuantity || 0);
+        return `<tr><td><b>${esc(p.name)}</b><br><small class="muted">${esc(p.productId)}</small></td><td><span class="record-type">${esc(p.category)}</span></td><td>${Number(p.quantity).toLocaleString()}</td><td>${sold.toLocaleString()}</td><td>₹${Number(p.price).toFixed(2)} <small class="muted">/ ₹${cost.toFixed(0)} cost</small></td><td>₹${(Number(p.quantity) * Number(p.price)).toLocaleString("en-IN", { maximumFractionDigits: 2 })}</td><td><div class="row-actions"><button class="action-btn" data-edit-product="${p._id}">Edit</button><button class="action-btn" data-delete-product="${p._id}">Delete</button></div></td></tr>`;
+      })
       .join("");
 
     $("productEmpty").hidden = products.length > 0;
@@ -65,6 +66,8 @@ function open(p) {
   $("productCategory").value = p?.category || "";
   $("productQuantity").value = p?.quantity ?? "";
   $("productPrice").value = p?.price ?? "";
+  if ($("productCostPrice")) $("productCostPrice").value = p?.costPrice ?? "";
+  if ($("productSold")) $("productSold").value = p?.soldQuantity ?? "";
   $("productDate").value = p?.date || new Date().toISOString().slice(0, 10);
   $("productDescription").value = p?.description || "";
   modal.classList.add("show");
@@ -89,17 +92,22 @@ document.addEventListener("keydown", (e) => {
 form.addEventListener("submit", async (e) => {
   e.preventDefault();
   const id = $("productId").value;
+  const price = Number($("productPrice").value);
+  const costRaw = $("productCostPrice")?.value;
+  const soldRaw = $("productSold")?.value;
   const p = {
     name: $("productName").value.trim(),
     category: $("productCategory").value,
     quantity: Number($("productQuantity").value),
-    price: Number($("productPrice").value),
+    price,
+    costPrice: costRaw !== "" && costRaw !== undefined ? Number(costRaw) : Math.round(price * 0.45),
+    soldQuantity: soldRaw !== "" && soldRaw !== undefined ? Number(soldRaw) : 0,
     date: $("productDate").value,
     description: $("productDescription").value.trim(),
   };
 
-  if (p.quantity < 0 || p.price < 0) {
-    toast("Quantity and price cannot be negative.");
+  if (p.quantity < 0 || p.price < 0 || p.costPrice < 0 || p.soldQuantity < 0) {
+    toast("Quantities and prices cannot be negative.");
     return;
   }
 
