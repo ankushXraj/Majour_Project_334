@@ -196,6 +196,12 @@ const api = {
     return this.request("/dashboard");
   },
 
+  async getPublicStats() {
+    const res = await fetch(`${API_BASE}/public-stats`);
+    if (!res.ok) throw new Error("Unable to fetch public stats");
+    return res.json();
+  },
+
   // ── Reports ─────────────────────────────────────────────
   async getReports() {
     return this.request("/reports");
