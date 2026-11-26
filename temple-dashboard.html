@@ -15,7 +15,9 @@
   <a class="side-link" href="#newRequest">＋ &nbsp; Submit flower waste</a>
   <a class="side-link" href="#contributionReport">₹ &nbsp; Contribution report</a>
   <a class="side-link" href="#myRequests">♧ &nbsp; My requests</a>
+  <a class="side-link" href="#myShopOrders">🛍️ &nbsp; My shop orders</a>
   <a class="side-link" href="calculator.html">🧮 &nbsp; Waste-to-Wealth Calculator</a>
+  <a class="side-link" href="shop.html">✿ &nbsp; Eco-Shop</a>
   <div class="sidebar-bottom">
     <a class="side-link" href="index.html">↩ &nbsp; Back to website</a>
     <button class="side-link" id="templeLogout" style="width:100%;text-align:left;border:0;background:transparent;cursor:pointer">⇥ &nbsp; Logout</button>
@@ -172,6 +174,32 @@
       </table>
     </div>
     <div class="empty-state" id="templeEmpty" hidden>You have not submitted any requests yet.</div>
+  </section>
+
+  <!-- Order History -->
+  <section class="module-panel" id="myShopOrders" style="margin-top:20px">
+    <div class="panel-head">
+      <div>
+        <h2>My Shop Orders</h2>
+        <p class="muted">Track eco-friendly product orders placed with your temple account.</p>
+      </div>
+      <a href="shop.html" class="outline-btn">Browse Eco-Shop →</a>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Order ID</th>
+            <th>Items</th>
+            <th>Total</th>
+            <th>Payment</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody id="templeOrderRows"></tbody>
+      </table>
+    </div>
+    <div class="empty-state" id="templeOrdersEmpty" hidden>No shop orders placed yet.</div>
   </section>
 </main>
 
