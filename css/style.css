@@ -2666,3 +2666,322 @@ tbody tr:hover {
   }
 }
 
+/* ── AI Profit & Sustainability Analyst ────────────────────── */
+.ai-chat-panel {
+  margin-top: 6px;
+}
+
+.ai-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.ai-chip {
+  padding: 7px 12px;
+  border-radius: 999px;
+  font-size: 11px;
+}
+
+.ai-chat-log {
+  background: #f6f9f5;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 16px;
+  max-height: 330px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+
+.ai-msg {
+  padding: 12px 15px;
+  border-radius: 14px;
+  font-size: 12.5px;
+  line-height: 1.65;
+  max-width: 92%;
+}
+
+.ai-msg strong {
+  display: inline;
+  font-weight: 700;
+}
+
+.ai-msg > strong:first-child {
+  display: block;
+  font-size: 10.5px;
+  letter-spacing: 0.4px;
+  margin-bottom: 4px;
+  opacity: 0.78;
+}
+
+.ai-bot {
+  align-self: flex-start;
+  background: #fff;
+  border: 1px solid rgba(31, 122, 76, 0.14);
+  box-shadow: 0 6px 14px -8px rgba(15, 46, 31, 0.14);
+  color: var(--ink);
+}
+
+.ai-user {
+  align-self: flex-end;
+  background: linear-gradient(145deg, #278f5a, #19613c);
+  color: #fff;
+  box-shadow: 0 8px 18px -6px rgba(25, 97, 60, 0.35);
+}
+
+.ai-chat-form {
+  display: flex;
+  gap: 10px;
+}
+
+.ai-chat-form .search-input {
+  flex: 1;
+}
+
+.ai-list {
+  display: grid;
+  gap: 11px;
+  margin-top: 16px;
+}
+
+.ai-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 14px;
+  border-radius: 12px;
+  border: 1px solid var(--line);
+  background: #f9fbf8;
+}
+
+.ai-item.win {
+  background: linear-gradient(135deg, #f3faf4, #ffffff);
+  border-color: rgba(31, 122, 76, 0.16);
+}
+
+.ai-item.warn {
+  background: linear-gradient(135deg, #fff9ef, #ffffff);
+  border-color: rgba(229, 154, 50, 0.25);
+}
+
+.ai-item b {
+  display: block;
+  font-size: 12px;
+  color: var(--deep);
+}
+
+.ai-item small {
+  display: block;
+  font-size: 10.5px;
+  color: var(--muted);
+  margin-top: 2px;
+}
+
+.ai-item strong {
+  font-size: 13px;
+  white-space: nowrap;
+}
+
+.ai-item.win strong { color: #1f7a4c; }
+.ai-item.warn strong { color: #b46414; }
+
+.ai-rec {
+  padding: 13px 15px;
+  border-radius: 12px;
+  background: #f6faf6;
+  border-left: 3px solid var(--green);
+}
+
+.ai-rec b {
+  display: block;
+  font-size: 12px;
+  color: var(--deep);
+  margin-bottom: 4px;
+}
+
+.ai-rec p {
+  font-size: 11.5px;
+  line-height: 1.6;
+  color: var(--muted);
+}
+
+.ai-forecast-row span {
+  font-weight: 700;
+  color: #a66214;
+}
+
+/* ── Smart Financial Engine, Contribution Report & Simulator ─ */
+.fin-green { color: #1b7a46 !important; }
+.fin-red { color: #c0392b !important; }
+.fin-yellow { color: #b9770e !important; }
+
+.fin-report-panel {
+  border: 1px solid rgba(31, 122, 76, 0.2);
+  background: linear-gradient(155deg, #ffffff 0%, #f5faf5 100%);
+}
+
+.fin-report-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 14px;
+  margin-bottom: 18px;
+}
+
+.fin-mini-card {
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 16px;
+  box-shadow: 0 8px 18px -10px rgba(15, 46, 31, 0.12);
+}
+
+.fin-mini-card small {
+  display: block;
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+}
+
+.fin-mini-card strong {
+  display: block;
+  font-size: 22px;
+  color: var(--deep);
+  margin: 7px 0 4px;
+}
+
+.fin-mini-card span {
+  display: block;
+  font-size: 10.5px;
+  color: #5b6d61;
+}
+
+.fin-card-green {
+  background: linear-gradient(145deg, #f0faf2, #ffffff);
+  border-color: rgba(31, 122, 76, 0.24);
+}
+
+.fin-card-yellow {
+  background: linear-gradient(145deg, #fffaf0, #ffffff);
+  border-color: rgba(229, 154, 50, 0.28);
+}
+
+.fin-breakdown-box {
+  background: #f8fbf7;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 16px 18px;
+}
+
+.fin-breakdown-box h3 {
+  font-size: 13px;
+  color: var(--deep);
+  margin-bottom: 12px;
+}
+
+.fin-break-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px 22px;
+}
+
+.fin-break-grid div {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 11.5px;
+  padding: 6px 0;
+  border-bottom: 1px dashed rgba(23, 62, 43, 0.1);
+}
+
+.fin-break-grid span { color: var(--muted); }
+.fin-break-grid b { color: var(--deep); }
+
+/* Smart Waste-to-Wealth Calculator Page */
+.calc-page-main {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 46px 5% 84px;
+}
+
+.calc-hero-head {
+  text-align: center;
+  max-width: 720px;
+  margin: 0 auto 38px;
+}
+
+.calc-hero-head h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(34px, 4vw, 48px);
+  color: var(--deep);
+  margin: 16px 0 12px;
+}
+
+.calc-hero-head h1 em {
+  background: linear-gradient(135deg, var(--green) 0%, #2fb872 60%, var(--gold) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.calc-hero-head p {
+  font-size: 14px;
+  line-height: 1.75;
+  color: var(--muted);
+}
+
+.calc-layout {
+  display: grid;
+  grid-template-columns: 360px 1fr;
+  gap: 24px;
+  align-items: start;
+}
+
+.calc-form-panel input[type="range"] {
+  width: 100%;
+  accent-color: var(--green);
+  padding: 4px 0;
+}
+
+.fin-kpi-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+
+.fin-row-highlight {
+  background: rgba(232, 245, 236, 0.55) !important;
+}
+
+.fin-filter-panel .waste-form-grid {
+  grid-template-columns: repeat(6, 1fr);
+}
+
+@media (max-width: 1080px) {
+  .calc-layout {
+    grid-template-columns: 1fr;
+  }
+  .fin-report-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .fin-filter-panel .waste-form-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 640px) {
+  .fin-report-grid,
+  .fin-kpi-grid,
+  .fin-break-grid,
+  .fin-filter-panel .waste-form-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+
+
