@@ -2,6 +2,9 @@ const express = require("express");
 const router = express.Router();
 const { body, validationResult } = require("express-validator");
 const CollectionRequest = require("../models/CollectionRequest");
+const FinancialTransaction = require("../models/FinancialTransaction");
+const CalculationHistory = require("../models/CalculationHistory");
+const { getActiveConfig, calculateWasteToWealth } = require("../services/financialEngine");
 const { protect, authorize } = require("../middleware/auth");
 
 // GET /api/collection-requests — Get all requests (admin/collection team)
@@ -71,20 +74,113 @@ router.post(
         return res.status(400).json({ success: false, errors: errors.array() });
       }
 
-      const { temple, flower, quantity, date, status, notes, contact, address } = req.body;
-
-      const request = await CollectionRequest.create({
-        temple: temple || req.user.templeName || req.user.name,
-        templeUser: req.user.role === "temple" ? req.user._id : undefined,
+      const {
+        temple,
         flower,
         quantity,
+        condition,
+        contaminationPct,
+        preferredMethod,
+        date,
+        status,
+        notes,
+        contact,
+        address,
+      } = req.body;
+
+      const safeCondition = ["Fresh", "Partially Dry", "Fully Dry"].includes(condition)
+        ? condition
+        : "Fresh";
+      const safeContam =
+        contaminationPct !== undefined ? Math.min(95, Math.max(0, Number(contaminationPct))) : 5;
+      const safeMethod = preferredMethod || "auto_best";
+
+      // Always compute financial estimate server-side (prevent client tampering)
+      const config = await getActiveConfig();
+      const financialEstimate = calculateWasteToWealth(
+        {
+          flower,
+          quantity: Number(quantity),
+          condition: safeCondition,
+          contaminationPct: safeContam,
+          preferredMethod: safeMethod,
+        },
+        config
+      );
+
+      const templeName = temple || req.user.templeName || req.user.name;
+
+      const request = await CollectionRequest.create({
+        temple: templeName,
+        templeUser: req.user.role === "temple" ? req.user._id : undefined,
+        flower,
+        quantity: Number(quantity),
+        condition: safeCondition,
+        contaminationPct: safeContam,
+        preferredMethod: safeMethod,
         date,
         status: status || "Pending",
         notes: notes || "",
         contact: contact || req.user.phone || "",
         address: address || req.user.address || "",
         origin: req.user.role === "temple" ? "templePortal" : "admin",
+        financialEstimate,
       });
+
+      const sel = financialEstimate.selected;
+      await Promise.all([
+        FinancialTransaction.create({
+          requestId: request.requestId,
+          templeUser: request.templeUser,
+          templeName,
+          type: "waste_estimate",
+          status: "Estimated",
+          flowerType: financialEstimate.inputSummary.flowerType,
+          wasteQuantityKg: request.quantity,
+          usableWasteKg: financialEstimate.massBalance.usableWasteKg,
+          productKey: sel.productKey,
+          productName: sel.productName,
+          estimatedOutputKg: sel.estimatedOutputKg,
+          estimatedRevenueINR: sel.totalRevenueINR,
+          directProductionCostINR: sel.directProductionCostINR,
+          operatingExpensesINR: sel.operatingOverheadINR,
+          totalExpensesINR: sel.totalExpensesINR,
+          grossProfitINR: sel.grossProfitINR,
+          netProfitINR: sel.netProfitINR,
+          templeRewardINR: sel.templeRewardINR,
+          flowercycleProfitINR: sel.flowercycleProfitINR,
+          date: request.date,
+          notes: `Auto-generated estimate for ${request.requestId}`,
+        }),
+        CalculationHistory.create({
+          source: req.user.role === "temple" ? "temple_submission" : "admin_submission",
+          user: req.user._id,
+          requestId: request.requestId,
+          configVersion: config.version,
+          input: {
+            flowerType: financialEstimate.inputSummary.flowerType,
+            quantityKg: request.quantity,
+            condition: safeCondition,
+            contaminationPct: safeContam,
+            processingMethod: safeMethod,
+            location: request.address,
+            date: request.date,
+          },
+          output: {
+            usableWasteKg: financialEstimate.massBalance.usableWasteKg,
+            dryFloralKg: financialEstimate.massBalance.dryFloralKg,
+            selectedProductKey: sel.productKey,
+            selectedProductName: sel.productName,
+            estimatedOutputKg: sel.estimatedOutputKg,
+            estimatedRevenueINR: sel.totalRevenueINR,
+            totalExpensesINR: sel.totalExpensesINR,
+            grossProfitINR: sel.grossProfitINR,
+            netProfitINR: sel.netProfitINR,
+            templeRewardINR: sel.templeRewardINR,
+            flowercycleProfitINR: sel.flowercycleProfitINR,
+          },
+        }),
+      ]);
 
       res.status(201).json({ success: true, data: request });
     } catch (error) {
