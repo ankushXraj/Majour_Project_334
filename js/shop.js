@@ -107,7 +107,13 @@ function addToCart(prod, packSize, unitPrice, qty = 1, btnEl = null) {
 
 function renderCart() {
   const totalQty = cart.reduce((s, i) => s + Number(i.quantity || 0), 0);
-  $("cartBadgeCount").textContent = totalQty;
+  const badge = $("cartBadgeCount");
+  badge.textContent = totalQty;
+  badge.classList.remove("badge-pop");
+  void badge.offsetWidth; // trigger reflow for css animation
+  badge.classList.add("badge-pop");
+  setTimeout(() => badge.classList.remove("badge-pop"), 400);
+
   const sub = cart.reduce((s, i) => s + Number(i.unitPrice) * Number(i.quantity), 0);
   const delivery = sub === 0 || sub >= FREE_DELIVERY_MIN ? 0 : DELIVERY_FEE;
   const total = sub + delivery;
@@ -176,7 +182,7 @@ function renderGrid() {
       const outOfStock = p.stockQuantity <= 0;
       const variantLabel = p.variantType === "fragrance" ? "Fragrance" : p.variantType === "colour" ? "Colour" : "Type";
 
-      return `<article class="shop-card" data-id="${p._id}">
+      return `<article class="shop-card product-card" data-id="${p._id}">
         <div class="shop-card-img">
           <img src="${esc(p.image)}" alt="${esc(p.name)}" loading="lazy">
           <span class="eco-tag">${esc(p.category)}</span>
@@ -205,6 +211,8 @@ function renderGrid() {
       </article>`;
     })
     .join("");
+
+  window.FlowerCycleMotion?.refresh();
 }
 
 function openProductDetail(prod) {
