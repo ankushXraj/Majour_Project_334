@@ -8,23 +8,43 @@ if (menuToggle && mainNav) {
   });
 }
 
-// Update nav login/register buttons based on auth state
+// Update nav login/register/dashboard buttons based on auth state
 (function updateNav() {
   const navLogin = document.querySelector(".nav-login");
   const navRegister = document.querySelector(".nav-register");
-  if (navLogin && typeof api !== "undefined" && api.isLoggedIn()) {
+  const navDash = document.getElementById("navDashboard");
+  const cartBadge = document.getElementById("cartBadgeCount");
+
+  let dashHref = "login.html";
+  if (typeof api !== "undefined" && api.isLoggedIn()) {
     const user = api.getUser();
-    navLogin.textContent = "Dashboard";
-    if (user && user.role === "temple") {
-      navLogin.href = "temple-dashboard.html";
-    } else if (user && user.role === "collection") {
-      navLogin.href = "collection-team.html";
-    } else if (user && user.role === "processing") {
-      navLogin.href = "waste-records.html";
-    } else {
-      navLogin.href = "dashboard.html";
+    if (user && user.role === "temple") dashHref = "temple-dashboard.html";
+    else if (user && user.role === "collection") dashHref = "collection-team.html";
+    else if (user && user.role === "processing") dashHref = "waste-records.html";
+    else if (user && user.role === "customer") dashHref = "shop.html";
+    else dashHref = "dashboard.html";
+
+    if (navDash) navDash.href = dashHref;
+    if (navLogin) {
+      navLogin.textContent = user?.role === "customer" ? "My Orders" : "Portal";
+      navLogin.href = dashHref;
     }
     if (navRegister) navRegister.style.display = "none";
+  } else {
+    if (navDash) navDash.href = "login.html";
+  }
+
+  // Sync cart badge on non-shop pages from localStorage or backend
+  if (cartBadge && !window.location.pathname.includes("shop.html")) {
+    const localCart = JSON.parse(localStorage.getItem("fcShopCart") || "[]");
+    const count = localCart.reduce((s, i) => s + Number(i.quantity || 0), 0);
+    cartBadge.textContent = count;
+    if (typeof api !== "undefined" && api.isLoggedIn()) {
+      api.getCart().then((res) => {
+        const items = res?.data?.items || [];
+        cartBadge.textContent = items.reduce((s, i) => s + Number(i.quantity || 0), 0);
+      }).catch(() => {});
+    }
   }
 })();
 
