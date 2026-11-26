@@ -1,3 +1,143 @@
 <!DOCTYPE html>
-<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Login | FlowerCycle</title><link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet"><link rel="stylesheet" href="css/style.css"></head>
-<body class="auth-body"><a class="back-home" href="index.html">← Back to home</a><main class="auth-layout"><section class="auth-visual"><div class="auth-flower">✿</div><span class="eyebrow light">WELCOME TO FLOWERCYCLE</span><h1>Every flower<br>deserves a <em>second life.</em></h1><p>Sign in to manage collection, track processing and support a cleaner cycle.</p></section><section class="auth-panel"><a class="brand" href="index.html"><span class="brand-mark">✿</span><span>Flower<span class="brand-accent">Cycle</span><small>WASTE TO WORTH</small></span></a><h2>Welcome back</h2><p class="muted">Enter your details to continue.</p><form id="loginForm"><label>Email address</label><input type="email" id="email" placeholder="name@example.com" required><label>Password</label><input type="password" id="password" placeholder="Enter password" required><label>Login as</label><select id="role"><option value="admin">Admin</option><option value="temple">Temple</option><option value="customer">Customer / Shopper</option><option value="collection">Collection team</option><option value="processing">Processing unit</option></select><button class="btn btn-primary full" type="submit">Sign in <span>→</span></button><p class="form-note" id="loginMessage">Temple accounts can sign in after registration. Data is stored in MongoDB database.</p><p class="form-note">New temple? <a href="temple-register.html" style="color:#236b45;font-weight:700">Register here</a></p></form></section></main><script src="js/api.js"></script><script src="js/temple-auth.js"></script><script src="js/ui-3d.js"></script><script src="js/motion.js"></script></body></html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sign In | FlowerCycle Waste to Wealth</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="auth-body">
+
+  <div class="auth-header-bar">
+    <a class="back-home" href="index.html">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+      <span>Back to Home</span>
+    </a>
+    <a class="brand" href="index.html" style="font-size:15px">
+      <span class="brand-mark">✿</span>
+      <span>Flower<span class="brand-accent">Cycle</span></span>
+    </a>
+  </div>
+
+  <main class="auth-layout">
+    <!-- Visual Showcase Column -->
+    <section class="auth-visual">
+      <div class="auth-flower" aria-hidden="true">✿</div>
+
+      <div class="auth-visual-top">
+        <span class="eyebrow light"><span class="dot"></span> SUSTAINABLE CIRCULAR PORTAL</span>
+        <h1>Every offering<br>finds a <em>divine purpose.</em></h1>
+        <p>Sign in to manage temple floral collections, track zero-waste solar processing, and access verifiable environmental records.</p>
+      </div>
+
+      <div class="auth-benefits">
+        <div class="auth-benefit-item">
+          <span class="icon">🛕</span>
+          <div>
+            <b>Verified Temple Network</b>
+            <small>Direct pickup dispatch, automated GPS alerts &amp; weight confirmation.</small>
+          </div>
+        </div>
+
+        <div class="auth-benefit-item">
+          <span class="icon">♻️</span>
+          <div>
+            <b>100% Circular Upcycling</b>
+            <small>Sun-cured floral processing into agarbatti, gulal &amp; vermicompost.</small>
+          </div>
+        </div>
+
+        <div class="auth-benefit-item">
+          <span class="icon">🛡️</span>
+          <div>
+            <b>Role-Based Security</b>
+            <small>Dedicated workspaces for Temples, Fleet Drivers, and Plant Admins.</small>
+          </div>
+        </div>
+      </div>
+
+      <div class="auth-visual-quote">
+        <span>🌸</span>
+        <span>"Transforming temple offerings into eco-products preserves sacred rivers and livelihoods."</span>
+      </div>
+    </section>
+
+    <!-- Interactive Form Column -->
+    <section class="auth-panel">
+      <a class="brand auth-brand" href="index.html">
+        <span class="brand-mark">✿</span>
+        <span>Flower<span class="brand-accent">Cycle</span><small>WASTE TO WORTH</small></span>
+      </a>
+
+      <h2>Welcome back</h2>
+      <p class="muted">Select your portal role and enter your verified credentials to access your dashboard.</p>
+
+      <!-- Quick Role Selection Tabs -->
+      <div class="role-tabs" id="roleTabs">
+        <button type="button" class="role-chip active" data-role="temple">🛕 Temple</button>
+        <button type="button" class="role-chip" data-role="admin">🛡️ Admin</button>
+        <button type="button" class="role-chip" data-role="customer">🛍️ Customer</button>
+        <button type="button" class="role-chip" data-role="collection">🚚 Collection Team</button>
+        <button type="button" class="role-chip" data-role="processing">🏭 Processing Unit</button>
+      </div>
+
+      <form id="loginForm">
+        <!-- Hidden select kept perfectly in sync with pills for 100% backend/form compatibility -->
+        <div class="form-group" style="margin-bottom:6px">
+          <label for="role">Portal Account Type</label>
+          <select id="role" name="role" required>
+            <option value="temple">Temple Partner</option>
+            <option value="admin">System Administrator</option>
+            <option value="customer">Customer / Shopper</option>
+            <option value="collection">Collection Logistics Team</option>
+            <option value="processing">Processing Unit</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="email">Email address</label>
+          <div class="auth-input-wrap">
+            <input type="email" id="email" name="email" placeholder="e.g. kashi@temple.org" required autocomplete="email">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="password">Password</label>
+          <div class="auth-input-wrap">
+            <input type="password" id="password" name="password" class="has-toggle" placeholder="Enter your secret password" required autocomplete="current-password">
+            <button type="button" class="pw-toggle-btn" id="togglePasswordBtn" aria-label="Toggle password visibility" title="Show/Hide password">👁️</button>
+          </div>
+        </div>
+
+        <button class="btn btn-primary full" type="submit">
+          <span>Sign In to Portal</span>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+        </button>
+
+        <div class="auth-msg-box" id="loginMessage"></div>
+
+        <!-- Quick 1-Click Demo Credentials for Evaluators -->
+        <div class="auth-demo-box">
+          <b>Quick Demo Credentials (Click to fill):</b>
+          <div class="demo-chips">
+            <button type="button" class="demo-chip" data-email="admin@flowercycle.org" data-pw="admin123" data-role="admin">🛡️ Admin</button>
+            <button type="button" class="demo-chip" data-email="kashi@temple.org" data-pw="temple123" data-role="temple">🛕 Temple</button>
+            <button type="button" class="demo-chip" data-email="fleet@flowercycle.org" data-pw="team123" data-role="collection">🚚 Collection</button>
+            <button type="button" class="demo-chip" data-email="ananya@gmail.com" data-pw="customer123" data-role="customer">🛍️ Customer</button>
+          </div>
+        </div>
+
+        <p class="form-note">
+          New temple partner? <a href="temple-register.html">Register temple account here</a>
+        </p>
+      </form>
+    </section>
+  </main>
+
+  <script src="js/api.js"></script>
+  <script src="js/temple-auth.js"></script>
+  <script src="js/ui-3d.js"></script>
+  <script src="js/motion.js"></script>
+</body>
+</html>
