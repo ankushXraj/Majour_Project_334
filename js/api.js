@@ -211,4 +211,57 @@ const api = {
   async getTemples() {
     return this.request("/temples");
   },
+
+  // ── AI Profit Analyst & Dataset ─────────────────────────
+  async getAiAnalysis() {
+    return this.request("/ai/analysis");
+  },
+
+  async askAi(question) {
+    return this.request("/ai/chat", {
+      method: "POST",
+      body: JSON.stringify({ question }),
+    });
+  },
+
+  // ── Smart Financial Engine & Waste-to-Wealth ────────────
+  async simulateFinancial(payload) {
+    return this.request("/financial/simulate", {
+      method: "POST",
+      body: JSON.stringify(payload),
+    });
+  },
+
+  async getFinancialConfig() {
+    return this.request("/financial/config");
+  },
+
+  async updateFinancialConfig(payload) {
+    return this.request("/financial/config", {
+      method: "PUT",
+      body: JSON.stringify(payload),
+    });
+  },
+
+  async getFinancialAnalytics(params = {}) {
+    const clean = Object.fromEntries(
+      Object.entries(params).filter(([, v]) => v !== undefined && v !== "" && v !== "all")
+    );
+    const query = new URLSearchParams(clean).toString();
+    return this.request(`/financial/analytics${query ? "?" + query : ""}`);
+  },
+
+  async getFinancialTransactions() {
+    return this.request("/financial/transactions");
+  },
+
+  async payTransaction(id) {
+    return this.request(`/financial/transactions/${id}/pay`, {
+      method: "PATCH",
+    });
+  },
+
+  async getMLStatus() {
+    return this.request("/financial/ml-status");
+  },
 };
