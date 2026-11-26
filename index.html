@@ -1,57 +1,393 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>FlowerCycle | Temple Flower Waste Management</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="FlowerCycle – Turning Temple Flower Waste into a Sustainable Future. Connect temples, collection teams, and eco-product creators.">
+  <title>FlowerCycle | Turning Temple Flower Waste into a Sustainable Future</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css">
 </head>
-<body>
+<body class="home-body">
+
 <header class="site-header">
-  <a class="brand" href="index.html"><span class="brand-mark">✿</span><span>Flower<span class="brand-accent">Cycle</span><small>WASTE TO WORTH</small></span></a>
+  <a class="brand" href="index.html">
+    <span class="brand-mark">✿</span>
+    <span>Flower<span class="brand-accent">Cycle</span><small>WASTE TO WORTH</small></span>
+  </a>
   <button class="menu-toggle" id="menuToggle" aria-label="Toggle navigation">☰</button>
-  <nav id="mainNav"><a class="active" href="index.html">Home</a><a href="#process">How it works</a><a href="#products">Eco-products</a><a href="#about">About</a><a class="nav-login" href="login.html">Login</a></nav>
-</header>
-<main>
-  <section class="hero">
-    <div class="hero-copy">
-      <span class="eyebrow"><span class="dot"></span> A cleaner way to give flowers a second life</span>
-      <h1>From sacred flowers<br>to <em>something meaningful.</em></h1>
-      <p>We help temples manage discarded flowers responsibly and turn biodegradable offerings into useful, eco-friendly products.</p>
-      <div class="hero-actions"><a class="btn btn-primary" href="temple-register.html">Register your temple <span>→</span></a><a class="text-link" href="#process">Explore the process <span>↓</span></a></div>
-      <div class="hero-note"><span class="avatar-stack"><i>✿</i><i>♻</i><i>🌱</i></span><span>Collect. Reuse. Renew.</span></div>
+  <nav id="mainNav">
+    <a class="active" href="index.html">Home</a>
+    <a href="#about">About</a>
+    <a href="#how-it-works">How It Works</a>
+    <a href="#products">Eco-Products</a>
+    <a href="#impact">Impact</a>
+    <div class="nav-actions">
+      <a class="nav-login" href="login.html">Login</a>
+      <a class="nav-register" href="temple-register.html">Register</a>
     </div>
+  </nav>
+</header>
+
+<main>
+  <!-- ── Hero Section ─────────────────────────────────────── -->
+  <section class="hero home-hero">
+    <div class="floating-petals" aria-hidden="true">
+      <span class="fp fp-1">✿</span>
+      <span class="fp fp-2">❀</span>
+      <span class="fp fp-3">✿</span>
+      <span class="fp fp-4">🍃</span>
+      <span class="fp fp-5">❀</span>
+    </div>
+
+    <div class="hero-copy">
+      <span class="eyebrow"><span class="dot"></span> Circular Temple Waste Management Platform</span>
+      <h1>Turning Temple Flower Waste into a <em>Sustainable Future.</em></h1>
+      <p>FlowerCycle bridges sacred temples, collection teams, and eco-craft units to rescue floral offerings from rivers and landfills—transforming devotion into natural incense, organic compost, and herbal colours.</p>
+      <div class="hero-actions">
+        <a class="btn btn-primary" href="temple-register.html">Get Started <span>→</span></a>
+        <a class="text-link" href="#how-it-works">Explore How It Works <span>↓</span></a>
+      </div>
+      <div class="hero-note">
+        <span class="avatar-stack"><i>🛕</i><i>♻</i><i>🌱</i></span>
+        <span>Collect cleanly. Segregate responsibly. Create eco-worth.</span>
+      </div>
+    </div>
+
     <div class="hero-art">
-      <div class="art-orbit orbit-one"></div><div class="art-orbit orbit-two"></div>
-      <div class="flower-visual"><span class="petal p1"></span><span class="petal p2"></span><span class="petal p3"></span><span class="petal p4"></span><span class="petal p5"></span><span class="flower-center"></span></div>
-      <div class="floating-card card-top"><span class="mini-icon">♻</span><span><b>Reuse, don't waste</b><small>Make every offering count</small></span></div>
-      <div class="floating-card card-bottom"><span class="mini-icon green">🌱</span><span><b>A circular approach</b><small>Waste becomes a resource</small></span></div>
+      <div class="art-orbit orbit-one"></div>
+      <div class="art-orbit orbit-two"></div>
+      <div class="art-orbit orbit-three"></div>
+      <div class="flower-visual">
+        <span class="petal petal-back p6"></span>
+        <span class="petal petal-back p7"></span>
+        <span class="petal petal-back p8"></span>
+        <span class="petal petal-back p9"></span>
+        <span class="petal petal-back p10"></span>
+        <span class="petal p1"></span>
+        <span class="petal p2"></span>
+        <span class="petal p3"></span>
+        <span class="petal p4"></span>
+        <span class="petal p5"></span>
+        <span class="flower-center"></span>
+      </div>
+      <div class="floating-card card-top">
+        <span class="mini-icon">♻</span>
+        <span><b>Zero-Waste Offerings</b><small>Diverting temple waste from rivers</small></span>
+      </div>
+      <div class="floating-card card-bottom">
+        <span class="mini-icon green">🌱</span>
+        <span><b>Circular Eco-Products</b><small>Incense, compost &amp; natural dyes</small></span>
+      </div>
       <span class="art-caption">NATURE • RESPECT • RENEWAL</span>
     </div>
   </section>
-  <section class="impact-strip">
-    <div><strong>01</strong><span>Collect flower waste</span></div><div><strong>02</strong><span>Separate and sort</span></div><div><strong>03</strong><span>Process responsibly</span></div><div><strong>04</strong><span>Create eco-products</span></div>
+
+  <!-- ── Floating Summary Ribbon ──────────────────────────── -->
+  <section class="impact-strip" aria-label="Core circular workflow">
+    <div><strong>01</strong><span>Temple Pickup Requests</span></div>
+    <div><strong>02</strong><span>Verified Waste Collection</span></div>
+    <div><strong>03</strong><span>Clean Petal Segregation</span></div>
+    <div><strong>04</strong><span>Eco-Friendly Products</span></div>
   </section>
-  <section class="section process-section" id="process">
-    <div class="section-heading"><span class="eyebrow">A simple process</span><h2>Good things happen when<br><em>we work together.</em></h2><p>A structured journey from temple offerings to useful resources.</p></div>
-    <div class="process-grid">
-      <article class="process-card"><span class="step-no">01</span><div class="process-icon">🛕</div><h3>Collection</h3><p>Temples submit collection requests and share the estimated quantity of flower waste.</p></article>
-      <article class="process-card"><span class="step-no">02</span><div class="process-icon">🌼</div><h3>Segregation</h3><p>Flowers are separated from plastic, cloth and other unwanted materials.</p></article>
-      <article class="process-card"><span class="step-no">03</span><div class="process-icon">♻️</div><h3>Processing</h3><p>Collected flowers are recorded and sent for suitable recycling or processing.</p></article>
-      <article class="process-card"><span class="step-no">04</span><div class="process-icon">🪔</div><h3>New products</h3><p>Flower waste can be reused to make incense, compost, natural colours and more.</p></article>
+
+  <!-- ── About FlowerCycle ────────────────────────────────── -->
+  <section class="section about-section" id="about">
+    <div class="about-grid">
+      <div class="about-media-wrap">
+        <div class="about-image-card">
+          <img src="images/about-sustainability.jpg" alt="Fresh marigold and rose temple offerings gathered sustainably in woven bamboo baskets" loading="lazy">
+          <div class="about-float-badge">
+            <span class="mini-icon green">🌿</span>
+            <div>
+              <b>Sacred to Sustainable</b>
+              <small>Respectful floral recovery &amp; reuse</small>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="about-content">
+        <span class="eyebrow">About FlowerCycle</span>
+        <h2>Honoring devotion while <em>protecting our environment.</em></h2>
+        <p class="about-lead">
+          FlowerCycle is a digital waste-to-worth management platform designed to coordinate temples, waste collection teams, and eco-product processing units through one unified workflow.
+        </p>
+        <div class="about-points">
+          <div class="about-point">
+            <span class="point-badge warn">!</span>
+            <div>
+              <h3>Why Temple Flower Waste Matters</h3>
+              <p>Every day, tons of offered flowers end up in landfills or water bodies alongside plastic wrappers and threads—causing water pollution, algae growth, and rotting organic waste.</p>
+            </div>
+          </div>
+          <div class="about-point">
+            <span class="point-badge">✓</span>
+            <div>
+              <h3>Coordinated Collection &amp; Conversion</h3>
+              <p>Temples schedule pickups in seconds, collection teams track and transport batches cleanly, and processing units segregate petals to craft incense sticks, organic compost, natural colours, and decorative items.</p>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </section>
-  <section class="products-section section" id="products">
-    <div class="section-heading left"><span class="eyebrow">Give waste a new purpose</span><h2>Small offerings.<br><em>Meaningful outcomes.</em></h2><p>Examples of products that can be made from properly processed floral waste.</p></div>
-    <div class="product-grid">
-      <article class="product-tile product-one"><span class="product-emoji">🪔</span><h3>Natural incense</h3><p>Flower-based incense products.</p></article>
-      <article class="product-tile product-two"><span class="product-emoji">🌱</span><h3>Organic compost</h3><p>Useful compost for plants and gardens.</p></article>
-      <article class="product-tile product-three"><span class="product-emoji">🎨</span><h3>Natural colours</h3><p>Colour made using suitable flower extracts.</p></article>
+
+  <!-- ── How It Works (6 Steps) ───────────────────────────── -->
+  <section class="section how-section" id="how-it-works">
+    <div class="section-heading">
+      <span class="eyebrow">How It Works</span>
+      <h2>Six connected steps from <em>altar to eco-product.</em></h2>
+      <p>A transparent, end-to-end digital lifecycle built for temples, collectors, and sustainability teams.</p>
+    </div>
+
+    <div class="how-grid">
+      <article class="process-card how-card">
+        <div class="how-top"><span class="step-no">Step 01</span></div>
+        <div class="process-icon">🛕</div>
+        <h3>Temple Registration</h3>
+        <p>Temples register on the platform with their contact details and pickup location to join the circular network.</p>
+      </article>
+
+      <article class="process-card how-card">
+        <div class="how-top"><span class="step-no">Step 02</span></div>
+        <div class="process-icon">📋</div>
+        <h3>Waste Collection Request</h3>
+        <p>Temples submit flower waste collection requests specifying flower type, estimated weight, and preferred pickup date.</p>
+      </article>
+
+      <article class="process-card how-card">
+        <div class="how-top"><span class="step-no">Step 03</span></div>
+        <div class="process-icon">🚛</div>
+        <h3>Waste Collection</h3>
+        <p>Collection teams view assigned temple requests in real time, pick up the floral waste, and update collection status.</p>
+      </article>
+
+      <article class="process-card how-card">
+        <div class="how-top"><span class="step-no">Step 04</span></div>
+        <div class="process-icon">🌼</div>
+        <h3>Waste Segregation</h3>
+        <p>Collected batches are weighed and separated into usable flower petals and non-floral materials like plastic or cloth.</p>
+      </article>
+
+      <article class="process-card how-card">
+        <div class="how-top"><span class="step-no">Step 05</span></div>
+        <div class="process-icon">🪔</div>
+        <h3>Eco-Product Manufacturing</h3>
+        <p>Segregated flowers are transformed into natural incense sticks, organic compost, herbal colours, and decorative products.</p>
+      </article>
+
+      <article class="process-card how-card">
+        <div class="how-top"><span class="step-no">Step 06</span></div>
+        <div class="process-icon">🌍</div>
+        <h3>Sustainable Impact</h3>
+        <p>Environmental pollution is reduced, inventory is tracked digitally, and valuable eco-friendly products return to the community.</p>
+      </article>
     </div>
   </section>
-  <section class="about-banner section" id="about"><div><span class="eyebrow light">Our purpose</span><h2>Respect the offering.<br>Protect the environment.</h2></div><p>FlowerCycle is a proposed digital platform to improve coordination between temples, collection teams and processing units while keeping clear records of the waste-to-product journey.</p></section>
+
+  <!-- ── Our Eco-Friendly Products ────────────────────────── -->
+  <section class="section showcase-section" id="products">
+    <div class="section-heading">
+      <span class="eyebrow">Our Eco-Friendly Products</span>
+      <h2>Handcrafted goods born from <em>recycled temple blooms.</em></h2>
+      <p>Every kilogram of segregated marigold, rose, and jasmine finds purposeful new life.</p>
+    </div>
+
+    <div class="eco-showcase-grid">
+      <article class="eco-card">
+        <div class="eco-img-wrap">
+          <img src="images/product-incense.jpg" alt="Natural incense sticks made from recycled temple flowers" loading="lazy">
+          <span class="eco-tag">Aromatic</span>
+        </div>
+        <div class="eco-card-body">
+          <h3>Natural Incense Sticks</h3>
+          <p>Charcoal-free agarbatti and dhoop cones crafted from sun-dried marigold and rose petals with natural essential oils.</p>
+        </div>
+      </article>
+
+      <article class="eco-card">
+        <div class="eco-img-wrap">
+          <img src="images/product-compost.jpg" alt="Nutrient-rich organic compost made from floral waste" loading="lazy">
+          <span class="eco-tag">Soil Care</span>
+        </div>
+        <div class="eco-card-body">
+          <h3>Organic Compost</h3>
+          <p>Nutrient-rich vermicompost and garden manure produced from biodegradable flower waste to nourish urban gardens and farms.</p>
+        </div>
+      </article>
+
+      <article class="eco-card">
+        <div class="eco-img-wrap">
+          <img src="images/product-colours.jpg" alt="Natural herbal Holi colours extracted from temple flowers" loading="lazy">
+          <span class="eco-tag">Skin-Safe</span>
+        </div>
+        <div class="eco-card-body">
+          <h3>Natural Holi Colours</h3>
+          <p>Vibrant, chemical-free herbal gulal extracted from marigold, hibiscus, and rose petals for safe, joyful celebrations.</p>
+        </div>
+      </article>
+
+      <article class="eco-card">
+        <div class="eco-img-wrap">
+          <img src="images/product-decor.jpg" alt="Decorative eco-friendly floral candles, potpourri, and seed paper" loading="lazy">
+          <span class="eco-tag">Artisanal</span>
+        </div>
+        <div class="eco-card-body">
+          <h3>Decorative Eco-Friendly Items</h3>
+          <p>Botanical wax candles, fragrant floral potpourri, and handmade seed-paper crafts pressed with dried temple blossoms.</p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- ── Why Choose FlowerCycle? ──────────────────────────── -->
+  <section class="section features-section" id="features">
+    <div class="section-heading">
+      <span class="eyebrow">Why Choose FlowerCycle?</span>
+      <h2>Designed for seamless <em>sustainability operations.</em></h2>
+      <p>Purpose-built digital tools that make circular flower recycling effortless for every stakeholder.</p>
+    </div>
+
+    <div class="features-grid">
+      <article class="feature-card">
+        <div class="feature-icon">🧠</div>
+        <h3>Smart Waste Management</h3>
+        <p>Centralized records replace manual registers with structured workflows across temples, collectors, and processors.</p>
+      </article>
+
+      <article class="feature-card">
+        <div class="feature-icon">⚡</div>
+        <h3>Easy Collection Requests</h3>
+        <p>Temples can log pickup requests in under a minute with flower type, quantity, address, and pickup instructions.</p>
+      </article>
+
+      <article class="feature-card">
+        <div class="feature-icon">📡</div>
+        <h3>Real-Time Waste Tracking</h3>
+        <p>Monitor every request from Pending to Collected, Processing, and Completed with full weight segregation visibility.</p>
+      </article>
+
+      <article class="feature-card">
+        <div class="feature-icon">✿</div>
+        <h3>Eco-Friendly Product Creation</h3>
+        <p>Track finished inventory categories, stock units, and valuation for incense, compost, organic colours, and decor.</p>
+      </article>
+
+      <article class="feature-card">
+        <div class="feature-icon">🌊</div>
+        <h3>Environmental Protection</h3>
+        <p>Prevents biodegradable offerings and mixed worship waste from polluting local rivers, drains, and landfills.</p>
+      </article>
+
+      <article class="feature-card">
+        <div class="feature-icon">🛕</div>
+        <h3>Sustainable Temple Management</h3>
+        <p>Gives temples a dedicated portal and analytics dashboard to honor eco-friendly commitments effortlessly.</p>
+      </article>
+    </div>
+  </section>
+
+  <!-- ── Environmental Impact Section ─────────────────────── -->
+  <section class="section impact-section" id="impact">
+    <div class="impact-shell">
+      <div class="impact-head">
+        <div>
+          <span class="eyebrow light">Environmental Impact</span>
+          <h2>Measurable progress toward a <em>cleaner flower cycle.</em></h2>
+          <p>Live aggregate metrics tracked directly from our management database across connected temples and processing records.</p>
+        </div>
+        <span class="impact-source-badge" id="impactSourceBadge">Loading platform metrics...</span>
+      </div>
+
+      <div class="impact-metrics-grid">
+        <article class="impact-card">
+          <span class="impact-emoji">🌸</span>
+          <strong class="impact-num" id="impactRecycled" data-target="90" data-suffix=" kg">90 kg</strong>
+          <span>Flowers Recycled</span>
+          <small>Recorded waste received for processing</small>
+        </article>
+
+        <article class="impact-card">
+          <span class="impact-emoji">🛕</span>
+          <strong class="impact-num" id="impactTemples" data-target="3" data-suffix="">3</strong>
+          <span>Temples Connected</span>
+          <small>Active registered temple partners</small>
+        </article>
+
+        <article class="impact-card">
+          <span class="impact-emoji">✅</span>
+          <strong class="impact-num" id="impactRequests" data-target="3" data-suffix="">3</strong>
+          <span>Collection Requests Completed</span>
+          <small>Pickups collected or processed</small>
+        </article>
+
+        <article class="impact-card">
+          <span class="impact-emoji">🪔</span>
+          <strong class="impact-num" id="impactProducts" data-target="109" data-suffix="">109</strong>
+          <span>Eco-Friendly Products Created</span>
+          <small>Total sustainable units in inventory</small>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Call-to-Action Section ───────────────────────────── -->
+  <section class="section cta-section" id="cta">
+    <div class="cta-banner">
+      <div class="cta-copy">
+        <span class="eyebrow">Join the Movement</span>
+        <h2>Be a Part of the <em>Green Revolution</em></h2>
+        <p>Join FlowerCycle and help transform temple flower waste into something valuable.</p>
+      </div>
+      <div class="cta-buttons">
+        <a class="btn btn-primary" href="temple-register.html">Register Your Temple <span>→</span></a>
+        <a class="cta-secondary-btn" href="login.html">Join Our Mission</a>
+      </div>
+    </div>
+  </section>
 </main>
-<footer><a class="brand footer-brand" href="index.html"><span class="brand-mark">✿</span><span>Flower<span class="brand-accent">Cycle</span><small>WASTE TO WORTH</small></span></a><p>Temple Flower Waste to Eco-Products Management System</p><small>Academic project prototype • 2026</small></footer>
-<script src="js/api.js"></script><script src="js/main.js"></script>
-</body></html>
+
+<footer class="site-footer">
+  <div class="footer-grid">
+    <div class="footer-about">
+      <a class="brand footer-brand" href="index.html">
+        <span class="brand-mark">✿</span>
+        <span>Flower<span class="brand-accent">Cycle</span><small>WASTE TO WORTH</small></span>
+      </a>
+      <p>Temple Flower Waste to Eco-Products Management System — connecting temples, collection teams, and processing units to build a cleaner circular economy.</p>
+      <span class="footer-tag">Academic Major Project • IILM University, Greater Noida</span>
+    </div>
+
+    <div class="footer-col">
+      <h4>Quick Links</h4>
+      <a href="index.html">Home</a>
+      <a href="#about">About FlowerCycle</a>
+      <a href="#how-it-works">How It Works</a>
+      <a href="#products">Eco-Products</a>
+      <a href="#impact">Environmental Impact</a>
+    </div>
+
+    <div class="footer-col">
+      <h4>Platform Features</h4>
+      <a href="temple-register.html">Temple Registration</a>
+      <a href="login.html">Portal Login</a>
+      <a href="dashboard.html">Admin Overview</a>
+      <a href="collection-requests.html">Collection Requests</a>
+      <a href="waste-records.html">Waste Segregation</a>
+      <a href="eco-products.html">Eco-Product Inventory</a>
+      <a href="reports.html">Reports &amp; Analytics</a>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <small>© 2026 FlowerCycle • Temple Flower Waste to Eco-Products Management System. All rights reserved.</small>
+    <small>From Flowers to a Greener Future</small>
+  </div>
+</footer>
+
+<script src="js/api.js"></script><script src="js/main.js"></script><script src="js/ui-3d.js"></script>
+</body>
+</html>
