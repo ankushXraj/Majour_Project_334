@@ -6,29 +6,74 @@ const esc = (s) =>
     ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c])
   );
 
+function animateVal(el, targetNum, prefix = "", suffix = "", decimals = 2) {
+  if (!el) return;
+  const start = parseFloat(el.dataset.currentVal || 0);
+  const duration = 450;
+  const startTime = performance.now();
+  el.dataset.currentVal = targetNum;
+
+  function step(now) {
+    const elapsed = now - startTime;
+    const progress = Math.min(elapsed / duration, 1);
+    const ease = 1 - Math.pow(1 - progress, 3);
+    const val = start + (targetNum - start) * ease;
+    el.textContent = `${prefix}${val.toLocaleString("en-IN", {
+      minimumFractionDigits: decimals,
+      maximumFractionDigits: decimals,
+    })}${suffix}`;
+    if (progress < 1) requestAnimationFrame(step);
+    else {
+      el.textContent = `${prefix}${targetNum.toLocaleString("en-IN", {
+        minimumFractionDigits: decimals,
+        maximumFractionDigits: decimals,
+      })}${suffix}`;
+    }
+  }
+  requestAnimationFrame(step);
+}
+
 function renderSimulation(d) {
   const mb = d.massBalance || {};
   const sel = d.selected || {};
   const exp = sel.expenseBreakdown || {};
 
-  $("resUsable").textContent = `${mb.usableWasteKg} kg`;
+  animateVal($("resUsable"), Number(mb.usableWasteKg || 0), "", " kg", 1);
   $("resDryMatter").textContent = `After ${mb.handlingRejectionPct}% sort loss & ${mb.moisturePct}% moisture → ${mb.dryFloralKg} kg dry`;
 
-  $("resOutput").textContent = `${sel.estimatedOutputKg} kg`;
+  animateVal($("resOutput"), Number(sel.estimatedOutputKg || 0), "", " kg", 1);
   $("resProductName").textContent = sel.productName;
 
-  $("resRevenue").textContent = money(sel.totalRevenueINR);
+  animateVal($("resRevenue"), Number(sel.totalRevenueINR || 0), "₹", "", 2);
   $("resRevRange").textContent = `Confidence range: ${money(sel.revenueRangeINR?.min)} – ${money(sel.revenueRangeINR?.max)}`;
 
-  $("resExpenses").textContent = money(sel.totalExpensesINR);
+  animateVal($("resExpenses"), Number(sel.totalExpensesINR || 0), "₹", "", 2);
   $("resCostSplit").textContent = `Direct: ${money(sel.directProductionCostINR)} · Overhead: ${money(sel.operatingOverheadINR)}`;
 
-  $("resReward").textContent = money(sel.templeRewardINR);
+  animateVal($("resReward"), Number(sel.templeRewardINR || 0), "₹", "", 2);
 
   const profitEl = $("resNetProfit");
-  profitEl.textContent = money(sel.flowercycleProfitINR);
+  animateVal(profitEl, Number(sel.flowercycleProfitINR || 0), "₹", "", 2);
   profitEl.className = sel.flowercycleProfitINR >= 0 ? "fin-green" : "fin-red";
   $("resMargin").textContent = `Margin: ${sel.marginPct}% (${sel.isProfitable ? "Profitable" : "Operating Loss"})`;
+
+  // Visual Breakdown Bar Update
+  const totalKg = mb.totalWasteKg || 1;
+  const dryPct = Math.max(2, Math.round(((mb.dryFloralKg || 0) / totalKg) * 100));
+  const contamPct = Math.max(1, Math.round(((mb.contaminationRemovedKg || 0) / totalKg) * 100));
+  const rejectPct = Math.max(1, Math.round(((mb.handlingRejectionKg || 0) / totalKg) * 100));
+  const moistPct = Math.max(5, 100 - dryPct - contamPct - rejectPct);
+
+  if ($("barDry")) {
+    $("barDry").style.width = `${dryPct}%`;
+    $("barMoisture").style.width = `${moistPct}%`;
+    $("barContam").style.width = `${contamPct}%`;
+    $("barReject").style.width = `${rejectPct}%`;
+    $("pctDry").textContent = `${dryPct}%`;
+    $("pctMoisture").textContent = `${moistPct}%`;
+    $("pctContam").textContent = `${contamPct}%`;
+    $("pctReject").textContent = `${rejectPct}%`;
+  }
 
   $("resPriceMeta").textContent = `Price Source: ${d.priceDataSource} (Date: ${d.priceDataDate})`;
   $("resDisclaimer").textContent = `ⓘ ${d.disclaimer}`;
@@ -59,6 +104,8 @@ function renderSimulation(d) {
       </tr>`;
     })
     .join("");
+
+  window.FlowerCycleMotion?.refresh();
 }
 
 async function runSimulation() {
