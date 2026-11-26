@@ -28,6 +28,21 @@ const ecoProductSchema = new mongoose.Schema(
       required: [true, "Price is required"],
       min: 0,
     },
+    costPrice: {
+      type: Number,
+      min: 0,
+      default: 0,
+    },
+    soldQuantity: {
+      type: Number,
+      min: 0,
+      default: 0,
+    },
+    wasteUsedKg: {
+      type: Number,
+      min: 0,
+      default: 0,
+    },
     date: {
       type: String,
       required: [true, "Date is required"],
