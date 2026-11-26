@@ -264,4 +264,79 @@ const api = {
   async getMLStatus() {
     return this.request("/financial/ml-status");
   },
+
+  // ── Shop, Cart & Orders ─────────────────────────────────
+  async getShopProducts(params = {}) {
+    const clean = Object.fromEntries(
+      Object.entries(params).filter(([, v]) => v !== undefined && v !== "" && v !== "all")
+    );
+    const query = new URLSearchParams(clean).toString();
+    const res = await fetch(`${API_BASE}/shop/products${query ? "?" + query : ""}`);
+    const data = await res.json();
+    if (!res.ok) throw new Error(data.message || "Failed to load shop products");
+    return data;
+  },
+
+  async createShopProduct(payload) {
+    return this.request("/shop/products", {
+      method: "POST",
+      body: JSON.stringify(payload),
+    });
+  },
+
+  async updateShopProduct(id, payload) {
+    return this.request(`/shop/products/${id}`, {
+      method: "PUT",
+      body: JSON.stringify(payload),
+    });
+  },
+
+  async deleteShopProduct(id) {
+    return this.request(`/shop/products/${id}`, {
+      method: "DELETE",
+    });
+  },
+
+  async uploadShopImage(dataUrl) {
+    return this.request("/shop/upload", {
+      method: "POST",
+      body: JSON.stringify({ dataUrl }),
+    });
+  },
+
+  async getCart() {
+    return this.request("/shop/cart");
+  },
+
+  async saveCart(items) {
+    return this.request("/shop/cart", {
+      method: "PUT",
+      body: JSON.stringify({ items }),
+    });
+  },
+
+  async mergeCart(items) {
+    return this.request("/shop/cart/merge", {
+      method: "POST",
+      body: JSON.stringify({ items }),
+    });
+  },
+
+  async placeOrder(payload) {
+    return this.request("/shop/orders", {
+      method: "POST",
+      body: JSON.stringify(payload),
+    });
+  },
+
+  async getOrders() {
+    return this.request("/shop/orders");
+  },
+
+  async updateOrderStatus(id, orderStatus) {
+    return this.request(`/shop/orders/${id}/status`, {
+      method: "PATCH",
+      body: JSON.stringify({ orderStatus }),
+    });
+  },
 };
