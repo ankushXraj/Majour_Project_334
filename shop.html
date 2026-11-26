@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shop Eco-Products | FlowerCycle</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="home-body">
+
+<header class="site-header">
+  <a class="brand" href="index.html">
+    <span class="brand-mark">✿</span>
+    <span>Flower<span class="brand-accent">Cycle</span><small>WASTE TO WORTH</small></span>
+  </a>
+  <button class="menu-toggle" id="menuToggle" aria-label="Toggle navigation">☰</button>
+  <nav id="mainNav">
+    <a href="index.html">Home</a>
+    <a href="calculator.html">Calculator</a>
+    <a href="index.html#how-it-works">How It Works</a>
+    <a class="active" href="shop.html">Shop</a>
+    <a href="index.html#products">Eco-Products</a>
+    <a href="login.html" id="navDashboard">Dashboard</a>
+    <div class="nav-actions">
+      <button type="button" class="cart-nav-btn" id="openCartBtn" aria-label="Open shopping cart">
+        🛍️ <span>Cart</span> <b class="cart-count-pill" id="cartBadgeCount">0</b>
+      </button>
+      <a class="nav-login" href="login.html">Login</a>
+      <a class="nav-register" href="temple-register.html">Register</a>
+    </div>
+  </nav>
+</header>
+
+<main class="shop-page-main">
+  <!-- Shop Hero Banner -->
+  <section class="shop-hero">
+    <div class="shop-hero-copy">
+      <span class="eyebrow"><span class="dot"></span> Recycled Temple Flowers • Crafted Sustainably</span>
+      <h1>Discover <em>Nature's Goodness</em></h1>
+      <p>Shop sustainable products made from recycled temple flowers. Every purchase supports a cleaner and greener planet.</p>
+      <div class="shop-hero-actions">
+        <a href="#catalogGrid" class="btn btn-primary">Browse Products <span>↓</span></a>
+        <button type="button" class="outline-btn" id="openMyOrdersBtn">📦 My Orders</button>
+      </div>
+    </div>
+    <div class="shop-hero-meta">
+      <div class="shop-notice-card">
+        <b>Demo Storefront &amp; Market Pricing</b>
+        <p>Displayed INR prices are Indian market-based demo benchmarks. Orders placed here are stored in MongoDB under Cash on Delivery or Demo Test Mode (no real payment is charged).</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Category Tabs -->
+  <section class="shop-categories-bar" id="categoryTabs" aria-label="Product categories">
+    <button type="button" class="shop-cat-pill active" data-cat="all">All Products</button>
+    <button type="button" class="shop-cat-pill" data-cat="Natural Incense Sticks">🪔 Natural Incense Sticks</button>
+    <button type="button" class="shop-cat-pill" data-cat="Natural Organic Holi Colours">🎨 Natural Organic Holi Colours</button>
+    <button type="button" class="shop-cat-pill" data-cat="Organic Compost & Fertilizers">🌱 Organic Compost &amp; Fertilizers</button>
+    <button type="button" class="shop-cat-pill" data-cat="Eco-Friendly Decorative Products">🎁 Eco-Friendly Decorative Products</button>
+  </section>
+
+  <!-- Search, Fragrance/Colour Filters & Price Sort -->
+  <section class="shop-toolbar module-panel">
+    <input type="search" id="shopSearch" class="search-input" placeholder="Search incense, gulal, compost, diyas...">
+
+    <div class="shop-filter-group">
+      <select id="fragranceFilter" class="filter-select" aria-label="Filter by incense fragrance">
+        <option value="all">All Fragrances (Incense)</option>
+        <option value="Sandalwood">Sandalwood</option>
+        <option value="Rose">Rose</option>
+        <option value="Jasmine">Jasmine</option>
+        <option value="Lavender">Lavender</option>
+        <option value="Mogra">Mogra</option>
+        <option value="Champa">Champa</option>
+        <option value="Mixed Floral">Mixed Floral</option>
+        <option value="Premium Temple Fragrance">Premium Temple Fragrance</option>
+      </select>
+
+      <select id="colourFilter" class="filter-select" aria-label="Filter by Holi colour">
+        <option value="all">All Holi Colours</option>
+        <option value="Red">Red</option>
+        <option value="Yellow">Yellow</option>
+        <option value="Pink">Pink</option>
+        <option value="Green">Green</option>
+        <option value="Orange">Orange</option>
+        <option value="Purple">Purple</option>
+        <option value="Blue">Blue</option>
+        <option value="Multi-Colour Pack">Multi-Colour Pack</option>
+      </select>
+
+      <select id="shopSort" class="filter-select" aria-label="Sort products by price">
+        <option value="default">Sort: Featured</option>
+        <option value="price_asc">Price: Low to High</option>
+        <option value="price_desc">Price: High to Low</option>
+        <option value="newest">Newest Arrivals</option>
+      </select>
+    </div>
+  </section>
+
+  <!-- Product Grid -->
+  <section class="shop-grid" id="catalogGrid"></section>
+  <div class="empty-state" id="shopEmpty" hidden>No eco-products match your current filters.</div>
+</main>
+
+<!-- Product Detail Modal -->
+<div class="modal-backdrop" id="detailModal">
+  <section class="request-modal shop-detail-modal">
+    <div class="modal-head">
+      <h2 id="detailTitle">Product Details</h2>
+      <button type="button" class="close-modal" id="closeDetailModal" aria-label="Close">×</button>
+    </div>
+    <div id="detailBody"></div>
+  </section>
+</div>
+
+<!-- Slide-Over Shopping Cart Drawer -->
+<div class="cart-backdrop" id="cartBackdrop">
+  <aside class="cart-drawer" aria-label="Shopping Cart">
+    <div class="cart-head">
+      <div>
+        <h2>Your Eco-Cart</h2>
+        <small class="muted" id="cartSubtext">Items persist in your browser &amp; account</small>
+      </div>
+      <button type="button" class="close-modal" id="closeCartBtn" aria-label="Close cart">×</button>
+    </div>
+
+    <div class="cart-items-list" id="cartItemsList"></div>
+
+    <div class="cart-summary-box" id="cartSummaryBox">
+      <div class="cart-sum-row"><span>Subtotal</span><b id="cartSubtotal">₹0</b></div>
+      <div class="cart-sum-row"><span>Est. Delivery (Free ≥ ₹499)</span><b id="cartDelivery">₹0</b></div>
+      <div class="cart-sum-row cart-total-row"><span>Total Amount</span><strong id="cartTotal">₹0</strong></div>
+      <button type="button" class="btn btn-primary full" id="proceedCheckoutBtn" style="margin-top:14px">Proceed to Checkout →</button>
+    </div>
+  </aside>
+</div>
+
+<!-- Checkout Modal -->
+<div class="modal-backdrop" id="checkoutModal">
+  <section class="request-modal">
+    <div class="modal-head">
+      <h2 id="checkoutModalTitle">Checkout</h2>
+      <button type="button" class="close-modal" id="closeCheckoutModal" aria-label="Close">×</button>
+    </div>
+
+    <form id="checkoutForm">
+      <div class="form-grid">
+        <div class="form-field full-width">
+          <label for="coName">Customer Name *</label>
+          <input id="coName" required maxlength="80" placeholder="Full name">
+        </div>
+        <div class="form-field">
+          <label for="coPhone">Phone Number *</label>
+          <input id="coPhone" type="tel" required pattern="[0-9+\-\s]{10,15}" placeholder="10-digit phone">
+        </div>
+        <div class="form-field">
+          <label for="coPayment">Payment Method *</label>
+          <select id="coPayment" required>
+            <option value="Cash on Delivery (COD)">Cash on Delivery (COD)</option>
+            <option value="Demo Payment (Test Mode)">Demo Payment (Test Mode — No Real Charge)</option>
+          </select>
+        </div>
+        <div class="form-field full-width">
+          <label for="coAddress">Delivery Address *</label>
+          <textarea id="coAddress" required maxlength="250" placeholder="House no., street, city, PIN code"></textarea>
+        </div>
+      </div>
+
+      <div class="fin-breakdown-box" id="coOrderSummary" style="margin-top:14px"></div>
+      <p class="form-note">ⓘ Demo checkout: No online payment gateway is integrated. Orders are recorded cleanly in MongoDB.</p>
+
+      <div class="modal-footer">
+        <button type="button" class="cancel-btn" id="cancelCheckoutBtn">Cancel</button>
+        <button type="submit" class="primary-small">Confirm Order →</button>
+      </div>
+    </form>
+
+    <div id="coSuccessBox" hidden></div>
+  </section>
+</div>
+
+<!-- My Orders Modal -->
+<div class="modal-backdrop" id="ordersModal">
+  <section class="request-modal" style="width:min(720px,100%);max-height:85vh;overflow-y:auto">
+    <div class="modal-head">
+      <h2>My Order History</h2>
+      <button type="button" class="close-modal" id="closeOrdersModal" aria-label="Close">×</button>
+    </div>
+    <div id="myOrdersBody"></div>
+  </section>
+</div>
+
+<div class="toast" id="shopToast"></div>
+<script src="js/api.js"></script><script src="js/main.js"></script><script src="js/shop.js"></script><script src="js/ui-3d.js"></script>
+</body>
+</html>
