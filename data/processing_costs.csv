@@ -1,0 +1,12 @@
+cost_category,unit,rate_inr,rate_min_inr,rate_max_inr,applies_to,assumption_and_source
+collection_cost,INR per kg raw waste,2.0,1.5,3.5,All Methods,"Local manual pickup & bin handling labor per kg collected waste (illustrative Indian micro-unit operational benchmark)."
+transportation_cost,INR per kg raw waste,2.5,1.5,4.5,All Methods,"Short-haul e-rickshaw / mini-van temple route logistics per kg (assumes 5-15 km urban cluster)."
+labour_cost,INR per kg usable waste,8.0,5.0,14.0,All Methods,"Manual segregation of plastic/threads, spreading, turning, or rolling labor per kg usable flower."
+drying_cost,INR per kg usable waste,3.5,1.5,7.0,Incense / Colours / Decor,"Solar dehydration tray handling + partial electric dryer backup per kg usable fresh/partial waste."
+processing_cost,INR per kg usable waste,12.0,6.0,22.0,Method Specific,"Pulverizer electricity, worm-bed maintenance, or pigment extraction consumables (varies by method)."
+packaging_cost,INR per kg finished product,18.0,8.0,35.0,Finished Output,"Moisture-barrier pouches/boxes/labels per kg finished product (CSIR-NBRI storage guideline)."
+other_operational_cost,INR per kg usable waste,2.5,1.5,5.0,All Methods,"Water, utilities, storage overhead & minor wastage allowance."
+additional_ingredients_incense,INR per kg dry flower powder,42.0,30.0,60.0,Natural Incense Sticks,"Jiggit natural bark binder (15-20%), charcoal/white wood dust (10-20%), bamboo sticks & aromatic oil per MSME/KVIC formulation."
+additional_ingredients_compost,INR per kg usable waste,1.8,1.0,3.0,Organic Compost / Vermicompost,"40% cow dung / dry leaves C:N bulking substrate + earthworm inoculum (Eisenia fetida) per ICAR/NCOF 60:40 co-composting."
+additional_ingredients_colours,INR per kg dry flower powder,75.0,55.0,110.0,Natural Organic Colours,"Food-grade arrowroot/cornstarch natural carrier base (~2.2x dry pigment mass) + natural essence per CSIR-NBRI herbal gulal method."
+additional_ingredients_decor,INR per kg dry flower powder,95.0,65.0,140.0,Decorative Eco-Friendly Products,"Soy wax / handmade recycled paper pulp / essential oils for botanical candles & potpourri."
