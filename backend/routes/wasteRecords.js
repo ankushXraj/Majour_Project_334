@@ -25,6 +25,18 @@ router.get("/", protect, authorize("admin", "processing"), async (req, res) => {
   }
 });
 
+// GET /api/waste-records/by-request/:requestId — Check if waste record exists for a request
+router.get("/by-request/:requestId", protect, async (req, res) => {
+  try {
+    const record = await WasteRecord.findOne({
+      sourceRequestId: req.params.requestId,
+    });
+    res.json({ success: true, exists: !!record, data: record });
+  } catch (error) {
+    res.status(500).json({ success: false, message: error.message });
+  }
+});
+
 // GET /api/waste-records/:id — Get a single record
 router.get("/:id", protect, authorize("admin", "processing"), async (req, res) => {
   try {
@@ -33,18 +45,6 @@ router.get("/:id", protect, authorize("admin", "processing"), async (req, res) =
       return res.status(404).json({ success: false, message: "Record not found" });
     }
     res.json({ success: true, data: record });
-  } catch (error) {
-    res.status(500).json({ success: false, message: error.message });
-  }
-});
-
-// GET /api/waste-records/by-request/:requestId — Check if waste record exists for a request
-router.get("/by-request/:requestId", protect, async (req, res) => {
-  try {
-    const record = await WasteRecord.findOne({
-      sourceRequestId: req.params.requestId,
-    });
-    res.json({ success: true, exists: !!record, data: record });
   } catch (error) {
     res.status(500).json({ success: false, message: error.message });
   }
