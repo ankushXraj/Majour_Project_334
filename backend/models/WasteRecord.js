@@ -50,6 +50,11 @@ const wasteRecordSchema = new mongoose.Schema(
       type: String,
       default: null,
     },
+    processingCost: {
+      type: Number,
+      min: 0,
+      default: 0,
+    },
   },
   { timestamps: true }
 );
