@@ -1,20 +1,100 @@
 // ── Main Navigation & Menu Toggle ──────────────────────────
 const menuToggle = document.getElementById("menuToggle");
 const mainNav = document.getElementById("mainNav");
-if (menuToggle && mainNav)
+if (menuToggle && mainNav) {
   menuToggle.addEventListener("click", () => mainNav.classList.toggle("open"));
+  mainNav.querySelectorAll("a").forEach((link) => {
+    link.addEventListener("click", () => mainNav.classList.remove("open"));
+  });
+}
 
-// Update nav login/logout button based on auth state
+// Update nav login/register buttons based on auth state
 (function updateNav() {
   const navLogin = document.querySelector(".nav-login");
-  if (navLogin && api.isLoggedIn()) {
+  const navRegister = document.querySelector(".nav-register");
+  if (navLogin && typeof api !== "undefined" && api.isLoggedIn()) {
     const user = api.getUser();
     navLogin.textContent = "Dashboard";
     if (user && user.role === "temple") {
       navLogin.href = "temple-dashboard.html";
+    } else if (user && user.role === "collection") {
+      navLogin.href = "collection-team.html";
+    } else if (user && user.role === "processing") {
+      navLogin.href = "waste-records.html";
     } else {
       navLogin.href = "dashboard.html";
     }
+    if (navRegister) navRegister.style.display = "none";
+  }
+})();
+
+// ── Homepage Environmental Impact Counters ──────────────────
+(async function initImpactSection() {
+  const recycledEl = document.getElementById("impactRecycled");
+  const templesEl = document.getElementById("impactTemples");
+  const requestsEl = document.getElementById("impactRequests");
+  const productsEl = document.getElementById("impactProducts");
+  const badgeEl = document.getElementById("impactSourceBadge");
+
+  if (!recycledEl || !templesEl || !requestsEl || !productsEl) return;
+
+  let isLive = false;
+  try {
+    if (typeof api !== "undefined" && api.getPublicStats) {
+      const res = await api.getPublicStats();
+      if (res && res.success && res.data) {
+        recycledEl.dataset.target = res.data.flowersRecycled;
+        templesEl.dataset.target = res.data.templesConnected;
+        requestsEl.dataset.target = res.data.requestsCompleted;
+        productsEl.dataset.target = res.data.productsCreated;
+        isLive = true;
+      }
+    }
+  } catch (err) {
+    isLive = false;
+  }
+
+  if (badgeEl) {
+    badgeEl.textContent = isLive
+      ? "Live database metrics"
+      : "Sample prototype metrics";
+  }
+
+  const counters = [recycledEl, templesEl, requestsEl, productsEl];
+  const animateCounter = (el) => {
+    const target = Number(el.dataset.target || 0);
+    const suffix = el.dataset.suffix || "";
+    const duration = 1100;
+    const start = performance.now();
+
+    const step = (now) => {
+      const progress = Math.min((now - start) / duration, 1);
+      const eased = 1 - Math.pow(1 - progress, 3);
+      const value = Math.round(target * eased);
+      el.textContent = value.toLocaleString() + suffix;
+      if (progress < 1) requestAnimationFrame(step);
+    };
+    requestAnimationFrame(step);
+  };
+
+  const impactSection = document.getElementById("impact");
+  if ("IntersectionObserver" in window && impactSection) {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting) {
+          counters.forEach(animateCounter);
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.2 }
+    );
+    observer.observe(impactSection);
+  } else {
+    counters.forEach((el) => {
+      el.textContent =
+        Number(el.dataset.target || 0).toLocaleString() +
+        (el.dataset.suffix || "");
+    });
   }
 })();
 
@@ -83,10 +163,8 @@ if (adminLogout) {
       const catIcons = { Incense: "🪔", Compost: "🌱", "Organic colours": "🎨", "Decorative items": "🎁" };
       const catSubtitles = { Incense: "Flower-based products", Compost: "Soil enrichment", "Organic colours": "Natural flower extracts", "Decorative items": "Handmade craft items" };
       const rows = productsPanel.querySelectorAll(".category-row");
-      // Clear existing and rebuild
       const container = rows[0]?.parentElement;
       if (container) {
-        // Remove old category rows
         container.querySelectorAll(".category-row").forEach((el) => el.remove());
         data.productCategories.forEach((cat) => {
           const div = document.createElement("div");
