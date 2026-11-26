@@ -8,7 +8,7 @@ const app = express();
 
 // ── Middleware ──────────────────────────────────────────────
 app.use(cors());
-app.use(express.json());
+app.use(express.json({ limit: "6mb" }));
 
 // Block access to backend source files via static middleware
 app.use("/backend", (req, res) => {
@@ -58,6 +58,9 @@ app.use("/api/waste-records", require("./routes/wasteRecords"));
 app.use("/api/eco-products", require("./routes/ecoProducts"));
 app.use("/api/reports", require("./routes/reports"));
 app.use("/api/dashboard", require("./routes/dashboard"));
+app.use("/api/ai", require("./routes/ai"));
+app.use("/api/financial", require("./routes/financial"));
+app.use("/api/shop", require("./routes/shop"));
 
 // Fallback: serve index.html for any non-API route
 app.get("*", (req, res) => {
