@@ -1,16 +1,142 @@
 <!DOCTYPE html>
-<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Temple Registration | FlowerCycle</title><link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet"><link rel="stylesheet" href="css/style.css"></head>
-<body class="auth-body"><a class="back-home" href="index.html">← Back to home</a><main class="auth-layout">
-<section class="auth-visual"><div class="auth-flower">✿</div><span class="eyebrow light">JOIN THE FLOWERCYCLE NETWORK</span><h1>Let every offering<br>find a <em>new purpose.</em></h1><p>Register your temple to request flower waste collection and follow its journey towards eco-friendly products.</p></section>
-<section class="auth-panel"><a class="brand" href="index.html"><span class="brand-mark">✿</span><span>Flower<span class="brand-accent">Cycle</span><small>WASTE TO WORTH</small></span></a><h2>Temple registration</h2><p class="muted">Create a temple account to get started.</p>
-<form id="templeRegisterForm">
-<label for="templeName">Temple name *</label><input id="templeName" required maxlength="80" placeholder="Enter temple name">
-<label for="contactPerson">Contact person *</label><input id="contactPerson" required maxlength="70" placeholder="Name of temple representative">
-<label for="templeEmail">Email address *</label><input id="templeEmail" type="email" required placeholder="temple@example.com">
-<label for="templePhone">Phone number *</label><input id="templePhone" type="tel" required pattern="[0-9+\-\s]{10,15}" placeholder="10-digit contact number">
-<label for="templeAddress">Temple address *</label><textarea id="templeAddress" required maxlength="220" placeholder="Area, city and PIN code"></textarea>
-<label for="templePassword">Create password *</label><input id="templePassword" type="password" minlength="6" required placeholder="At least 6 characters">
-<button class="btn btn-primary full" type="submit">Create temple account <span>→</span></button>
-<p class="form-note" id="registerMessage">Your temple details will be securely stored in the FlowerCycle database.</p>
-<p class="form-note">Already registered? <a href="login.html" style="color:#236b45;font-weight:700">Sign in</a></p>
-</form></section></main><script src="js/api.js"></script><script src="js/temple-auth.js"></script><script src="js/ui-3d.js"></script><script src="js/motion.js"></script></body></html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Temple Registration | FlowerCycle Waste to Wealth</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="auth-body">
+
+  <div class="auth-header-bar">
+    <a class="back-home" href="index.html">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+      <span>Back to Home</span>
+    </a>
+    <a class="brand" href="index.html" style="font-size:15px">
+      <span class="brand-mark">✿</span>
+      <span>Flower<span class="brand-accent">Cycle</span></span>
+    </a>
+  </div>
+
+  <main class="auth-layout">
+    <!-- Visual Showcase Column -->
+    <section class="auth-visual">
+      <div class="auth-flower" aria-hidden="true">✿</div>
+
+      <div class="auth-visual-top">
+        <span class="eyebrow light"><span class="dot"></span> JOIN OUR GREEN TEMPLE NETWORK</span>
+        <h1>Honoring Faith,<br><em>Preserving Rivers.</em></h1>
+        <p>Register your temple trust to request doorstep flower pickups, follow each batch through solar drying, and receive eco-impact rewards.</p>
+      </div>
+
+      <div class="auth-benefits">
+        <div class="auth-benefit-item">
+          <span class="icon">🚚</span>
+          <div>
+            <b>Scheduled Doorstep Collection</b>
+            <small>Breathable crates provided for segregrated marigold, rose &amp; jasmine waste.</small>
+          </div>
+        </div>
+
+        <div class="auth-benefit-item">
+          <span class="icon">📊</span>
+          <div>
+            <b>Digital Waste &amp; Yield Logs</b>
+            <small>Live tracking of usable petals, moisture loss, and eco-product value generated.</small>
+          </div>
+        </div>
+
+        <div class="auth-benefit-item">
+          <span class="icon">🎖️</span>
+          <div>
+            <b>Certified Green Shrine Status</b>
+            <small>Verifiable zero-landfill certificates honoring your environmental pledge.</small>
+          </div>
+        </div>
+      </div>
+
+      <div class="auth-visual-quote">
+        <span>🛕</span>
+        <span>"Every floral offering given with devotion finds sustainable rebirth in sacred incense and soil nutrients."</span>
+      </div>
+    </section>
+
+    <!-- Registration Form Column -->
+    <section class="auth-panel">
+      <a class="brand auth-brand" href="index.html">
+        <span class="brand-mark">✿</span>
+        <span>Flower<span class="brand-accent">Cycle</span><small>WASTE TO WORTH</small></span>
+      </a>
+
+      <h2>Temple Registration</h2>
+      <p class="muted">Fill in your temple and administrator details to create your dedicated portal workspace.</p>
+
+      <form id="templeRegisterForm">
+        <div class="auth-form-grid">
+          <div class="form-group">
+            <label for="templeName">Temple Name *</label>
+            <div class="auth-input-wrap">
+              <input id="templeName" name="templeName" required maxlength="80" placeholder="e.g. Shri Somnath Temple">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="contactPerson">Contact Person *</label>
+            <div class="auth-input-wrap">
+              <input id="contactPerson" name="contactPerson" required maxlength="70" placeholder="e.g. Ramesh Chandra (Manager)">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="templeEmail">Email Address *</label>
+            <div class="auth-input-wrap">
+              <input id="templeEmail" name="templeEmail" type="email" required placeholder="temple@example.org" autocomplete="email">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="templePhone">Phone Number *</label>
+            <div class="auth-input-wrap">
+              <input id="templePhone" name="templePhone" type="tel" required pattern="[0-9+\-\s]{10,15}" placeholder="10-digit mobile number" autocomplete="tel">
+            </div>
+          </div>
+
+          <div class="form-group full-width">
+            <label for="templeAddress">Temple Address &amp; Pickup Area *</label>
+            <div class="auth-input-wrap">
+              <textarea id="templeAddress" name="templeAddress" required maxlength="220" rows="3" placeholder="Street, landmark, city, state and PIN code for collection fleet"></textarea>
+            </div>
+          </div>
+
+          <div class="form-group full-width">
+            <label for="templePassword">Create Password *</label>
+            <div class="auth-input-wrap">
+              <input id="templePassword" name="templePassword" type="password" minlength="6" required class="has-toggle" placeholder="Minimum 6 characters" autocomplete="new-password">
+              <button type="button" class="pw-toggle-btn" id="toggleRegisterPasswordBtn" aria-label="Toggle password visibility" title="Show/Hide password">👁️</button>
+            </div>
+          </div>
+        </div>
+
+        <button class="btn btn-primary full" type="submit">
+          <span>Complete Temple Registration</span>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+        </button>
+
+        <div class="auth-msg-box" id="registerMessage"></div>
+
+        <p class="form-note">
+          Your temple data is protected by FlowerCycle privacy &amp; security standards.<br>
+          Already registered? <a href="login.html">Sign in to your portal</a>
+        </p>
+      </form>
+    </section>
+  </main>
+
+  <script src="js/api.js"></script>
+  <script src="js/temple-auth.js"></script>
+  <script src="js/ui-3d.js"></script>
+  <script src="js/motion.js"></script>
+</body>
+</html>
