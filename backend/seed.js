@@ -293,7 +293,7 @@ const seedData = async () => {
       packSize: "100g (50 Sticks)",
       sizeOptions: [{ label: "100g (50 Sticks)", price: 95 }, { label: "250g (125 Sticks)", price: 215 }],
       stockQuantity: 80,
-      image: "images/product-incense.jpg",
+      image: "assets/products/incense-sandalwood.jpg",
     },
     {
       productId: "SH1002",
@@ -306,7 +306,7 @@ const seedData = async () => {
       packSize: "100g (50 Sticks)",
       sizeOptions: [{ label: "100g (50 Sticks)", price: 85 }, { label: "250g (125 Sticks)", price: 195 }],
       stockQuantity: 95,
-      image: "images/shop-incense-variety.jpg",
+      image: "assets/products/incense-rose.jpg",
     },
     {
       productId: "SH1003",
@@ -319,7 +319,7 @@ const seedData = async () => {
       packSize: "100g (50 Sticks)",
       sizeOptions: [{ label: "100g (50 Sticks)", price: 90 }, { label: "250g (125 Sticks)", price: 205 }],
       stockQuantity: 70,
-      image: "images/product-incense.jpg",
+      image: "assets/products/incense-jasmine.jpg",
     },
     {
       productId: "SH1004",
@@ -332,7 +332,7 @@ const seedData = async () => {
       packSize: "100g (50 Sticks)",
       sizeOptions: [{ label: "100g (50 Sticks)", price: 105 }, { label: "250g (125 Sticks)", price: 235 }],
       stockQuantity: 60,
-      image: "images/shop-incense-variety.jpg",
+      image: "assets/products/incense-lavender.jpg",
     },
     {
       productId: "SH1005",
@@ -345,7 +345,7 @@ const seedData = async () => {
       packSize: "100g (50 Sticks)",
       sizeOptions: [{ label: "100g (50 Sticks)", price: 90 }, { label: "250g (125 Sticks)", price: 200 }],
       stockQuantity: 65,
-      image: "images/product-incense.jpg",
+      image: "assets/products/incense-mogra.jpg",
     },
     {
       productId: "SH1006",
@@ -358,7 +358,7 @@ const seedData = async () => {
       packSize: "100g (50 Sticks)",
       sizeOptions: [{ label: "100g (50 Sticks)", price: 95 }, { label: "250g (125 Sticks)", price: 210 }],
       stockQuantity: 55,
-      image: "images/shop-incense-variety.jpg",
+      image: "assets/products/incense-champa.jpg",
     },
     {
       productId: "SH1007",
@@ -371,7 +371,7 @@ const seedData = async () => {
       packSize: "100g (50 Sticks)",
       sizeOptions: [{ label: "100g (50 Sticks)", price: 75 }, { label: "250g (125 Sticks)", price: 170 }],
       stockQuantity: 120,
-      image: "images/product-incense.jpg",
+      image: "assets/products/incense-mixed-floral.jpg",
     },
     {
       productId: "SH1008",
@@ -384,7 +384,7 @@ const seedData = async () => {
       packSize: "250g Gift Pack",
       sizeOptions: [{ label: "250g Gift Pack", price: 240 }, { label: "500g Value Box", price: 440 }],
       stockQuantity: 45,
-      image: "images/shop-incense-variety.jpg",
+      image: "assets/products/incense-premium-temple.jpg",
     },
 
     // B. Natural Organic Holi Colours (8 Colour Options, 100g / 250g / 500g)
@@ -399,7 +399,7 @@ const seedData = async () => {
       packSize: "100g",
       sizeOptions: [{ label: "100g", price: 90 }, { label: "250g", price: 195 }, { label: "500g", price: 360 }],
       stockQuantity: 85,
-      image: "images/product-colours.jpg",
+      image: "assets/products/gulal-red.jpg",
     },
     {
       productId: "SH2002",
@@ -412,7 +412,7 @@ const seedData = async () => {
       packSize: "100g",
       sizeOptions: [{ label: "100g", price: 85 }, { label: "250g", price: 185 }, { label: "500g", price: 340 }],
       stockQuantity: 90,
-      image: "images/product-colours.jpg",
+      image: "assets/products/gulal-yellow.jpg",
     },
     {
       productId: "SH2003",
@@ -425,7 +425,7 @@ const seedData = async () => {
       packSize: "100g",
       sizeOptions: [{ label: "100g", price: 90 }, { label: "250g", price: 195 }, { label: "500g", price: 360 }],
       stockQuantity: 75,
-      image: "images/product-colours.jpg",
+      image: "assets/products/gulal-pink.jpg",
     },
     {
       productId: "SH2004",
@@ -438,7 +438,7 @@ const seedData = async () => {
       packSize: "100g",
       sizeOptions: [{ label: "100g", price: 85 }, { label: "250g", price: 185 }, { label: "500g", price: 340 }],
       stockQuantity: 70,
-      image: "images/product-colours.jpg",
+      image: "assets/products/gulal-green.jpg",
     },
     {
       productId: "SH2005",
@@ -451,7 +451,7 @@ const seedData = async () => {
       packSize: "100g",
       sizeOptions: [{ label: "100g", price: 90 }, { label: "250g", price: 195 }, { label: "500g", price: 360 }],
       stockQuantity: 80,
-      image: "images/product-colours.jpg",
+      image: "assets/products/gulal-orange.jpg",
     },
     {
       productId: "SH2006",
@@ -464,7 +464,7 @@ const seedData = async () => {
       packSize: "100g",
       sizeOptions: [{ label: "100g", price: 95 }, { label: "250g", price: 210 }, { label: "500g", price: 385 }],
       stockQuantity: 50,
-      image: "images/product-colours.jpg",
+      image: "assets/products/gulal-purple.jpg",
     },
     {
       productId: "SH2007",
@@ -477,7 +477,7 @@ const seedData = async () => {
       packSize: "100g",
       sizeOptions: [{ label: "100g", price: 95 }, { label: "250g", price: 210 }, { label: "500g", price: 385 }],
       stockQuantity: 55,
-      image: "images/product-colours.jpg",
+      image: "assets/products/gulal-blue.jpg",
     },
     {
       productId: "SH2008",
@@ -490,7 +490,7 @@ const seedData = async () => {
       packSize: "250g",
       sizeOptions: [{ label: "250g", price: 260 }, { label: "500g", price: 480 }],
       stockQuantity: 60,
-      image: "images/product-colours.jpg",
+      image: "assets/products/gulal-multicolour-pack.jpg",
     },
 
     // C. Organic Compost & Fertilizers (4 Products, 1kg / 2kg / 5kg / 10kg)
@@ -505,7 +505,7 @@ const seedData = async () => {
       packSize: "1 kg",
       sizeOptions: [{ label: "1 kg", price: 45 }, { label: "2 kg", price: 85 }, { label: "5 kg", price: 185 }, { label: "10 kg", price: 330 }],
       stockQuantity: 110,
-      image: "images/product-compost.jpg",
+      image: "assets/products/compost-marigold.jpg",
     },
     {
       productId: "SH3002",
@@ -518,7 +518,7 @@ const seedData = async () => {
       packSize: "1 kg",
       sizeOptions: [{ label: "1 kg", price: 55 }, { label: "2 kg", price: 100 }, { label: "5 kg", price: 220 }, { label: "10 kg", price: 390 }],
       stockQuantity: 130,
-      image: "images/shop-fertilizer.jpg",
+      image: "assets/products/compost-vermicompost.jpg",
     },
     {
       productId: "SH3003",
@@ -531,7 +531,7 @@ const seedData = async () => {
       packSize: "1 kg",
       sizeOptions: [{ label: "1 kg", price: 65 }, { label: "2 kg", price: 120 }, { label: "5 kg", price: 265 }, { label: "10 kg", price: 470 }],
       stockQuantity: 85,
-      image: "images/product-compost.jpg",
+      image: "assets/products/compost-garden-fertilizer.jpg",
     },
     {
       productId: "SH3004",
@@ -544,7 +544,7 @@ const seedData = async () => {
       packSize: "1 kg",
       sizeOptions: [{ label: "1 kg", price: 75 }, { label: "2 kg", price: 140 }, { label: "5 kg", price: 310 }, { label: "10 kg", price: 550 }],
       stockQuantity: 75,
-      image: "images/shop-fertilizer.jpg",
+      image: "assets/products/compost-plant-growth-mix.jpg",
     },
 
     // D. Eco-Friendly Decorative Products (5 Products)
@@ -559,7 +559,7 @@ const seedData = async () => {
       packSize: "Set of 6",
       sizeOptions: [{ label: "Set of 6", price: 160 }, { label: "Set of 12", price: 295 }],
       stockQuantity: 55,
-      image: "images/shop-diyas.jpg",
+      image: "assets/products/decor-flower-diyas.jpg",
     },
     {
       productId: "SH4002",
@@ -572,7 +572,7 @@ const seedData = async () => {
       packSize: "10 Sheets",
       sizeOptions: [{ label: "10 Sheets", price: 140 }, { label: "25 Sheets", price: 310 }],
       stockQuantity: 65,
-      image: "images/shop-paper-decor.jpg",
+      image: "assets/products/decor-recycled-paper.jpg",
     },
     {
       productId: "SH4003",
@@ -585,7 +585,7 @@ const seedData = async () => {
       packSize: "Combo Box",
       sizeOptions: [{ label: "Combo Box", price: 220 }, { label: "Deluxe Set", price: 390 }],
       stockQuantity: 40,
-      image: "images/product-decor.jpg",
+      image: "assets/products/decor-handmade-decorations.jpg",
     },
     {
       productId: "SH4004",
@@ -598,7 +598,7 @@ const seedData = async () => {
       packSize: "Gift Hamper",
       sizeOptions: [{ label: "Gift Hamper", price: 340 }, { label: "Corporate Pack (2)", price: 640 }],
       stockQuantity: 35,
-      image: "images/product-decor.jpg",
+      image: "assets/products/decor-gift-items.jpg",
     },
     {
       productId: "SH4005",
@@ -611,7 +611,7 @@ const seedData = async () => {
       packSize: "8x10 Frame",
       sizeOptions: [{ label: "8x10 Frame", price: 290 }, { label: "12x16 Frame", price: 480 }],
       stockQuantity: 25,
-      image: "images/shop-paper-decor.jpg",
+      image: "assets/products/decor-floral-art.jpg",
     },
   ];
 
