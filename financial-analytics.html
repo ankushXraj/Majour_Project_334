@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Financial Analytics | FlowerCycle</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="dashboard-body">
+<aside class="sidebar">
+  <a class="brand" href="index.html"><span class="brand-mark">✿</span><span>Flower<span class="brand-accent">Cycle</span><small>MANAGEMENT</small></span></a>
+  <div class="side-label">WORKSPACE</div>
+  <a class="side-link" href="dashboard.html">▦ &nbsp; Overview</a>
+  <a class="side-link" href="collection-requests.html">♧ &nbsp; Collection requests</a>
+  <a class="side-link" href="waste-records.html">♻ &nbsp; Waste records</a>
+  <a class="side-link" href="eco-products.html">✿ &nbsp; Eco-products</a>
+  <a class="side-link" href="reports.html">▤ &nbsp; Reports</a>
+  <a class="side-link selected" href="financial-analytics.html">₹ &nbsp; Financial Analytics</a>
+  <a class="side-link" href="ai-insights.html">✨ &nbsp; AI Profit Analyst</a>
+  <a class="side-link" href="calculator.html">🧮 &nbsp; Simulator</a>
+  <div class="sidebar-bottom"><a class="side-link" href="index.html">↩ &nbsp; Back to website</a></div>
+</aside>
+
+<main class="module-main">
+  <header class="module-header">
+    <div>
+      <span class="muted">Workspace / Financial Analytics &amp; Config</span>
+      <h1>Financial Analytics &amp; P&amp;L</h1>
+      <p class="muted">Actual realized sales vs estimated pipeline projections, configurable conversion ratios, and temple settlements.</p>
+    </div>
+    <div class="module-actions">
+      <a href="calculator.html" class="outline-btn">Open Simulator →</a>
+      <button class="primary-small" id="refreshFinBtn">↻ Refresh</button>
+    </div>
+  </header>
+
+  <!-- Filters -->
+  <section class="module-panel fin-filter-panel">
+    <div class="waste-form-grid">
+      <div class="form-field">
+        <label for="fStart">Start Date</label>
+        <input id="fStart" type="date">
+      </div>
+      <div class="form-field">
+        <label for="fEnd">End Date</label>
+        <input id="fEnd" type="date">
+      </div>
+      <div class="form-field">
+        <label for="fFlower">Flower Type</label>
+        <select id="fFlower">
+          <option value="all">All Flowers</option>
+          <option value="Marigold">Marigold</option>
+          <option value="Rose">Rose</option>
+          <option value="Jasmine">Jasmine</option>
+          <option value="Lotus">Lotus</option>
+          <option value="Mixed Flowers">Mixed Flowers</option>
+        </select>
+      </div>
+      <div class="form-field">
+        <label for="fCategory">Product Category</label>
+        <select id="fCategory">
+          <option value="all">All Categories</option>
+          <option value="Incense">Incense</option>
+          <option value="Compost">Compost</option>
+          <option value="Organic colours">Organic colours</option>
+          <option value="Decorative items">Decorative items</option>
+        </select>
+      </div>
+      <div class="form-field">
+        <label for="fTemple">Temple</label>
+        <select id="fTemple">
+          <option value="all">All Temples</option>
+        </select>
+      </div>
+      <div class="form-field" style="display:flex;align-items:flex-end">
+        <button type="button" class="cancel-btn" id="clearFiltersBtn" style="width:100%">Reset Filters</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- KPI Cards -->
+  <section class="waste-stat-grid" style="margin-top:18px">
+    <article class="waste-stat">
+      <span>Waste Collected / Processed</span>
+      <strong id="finWasteStat">0 / 0 kg</strong>
+      <small class="stat-foot" id="finWasteReceived">Received: 0 kg</small>
+    </article>
+    <article class="waste-stat">
+      <span>Actual Realized Revenue</span>
+      <strong id="finActualRev" class="fin-green">₹0</strong>
+      <small class="stat-foot" id="finGrossProfit">Gross Profit: ₹0</small>
+    </article>
+    <article class="waste-stat">
+      <span>Actual Net Profit / Loss</span>
+      <strong id="finNetProfit" class="fin-green">₹0</strong>
+      <small class="stat-foot" id="finExpenditure">Processing Exp: ₹0</small>
+    </article>
+    <article class="waste-stat">
+      <span>Est. Pipeline / Temple Pay</span>
+      <strong id="finEstPipeline" class="fin-yellow">₹0</strong>
+      <small class="stat-foot" id="finTemplePay">Temple Paid: ₹0 | Est: ₹0</small>
+    </article>
+  </section>
+
+  <!-- Top Highlights -->
+  <section class="report-grid">
+    <article class="module-panel">
+      <div class="report-card-head">
+        <h2>Product-Wise Actual Revenue &amp; Profit</h2>
+        <p class="muted">Realized revenue from recorded Eco-Product inventory sales.</p>
+      </div>
+      <div id="finProductBars" class="category-bars"></div>
+    </article>
+
+    <article class="module-panel">
+      <div class="report-card-head">
+        <h2>Monthly Profit / Loss Trend</h2>
+        <p class="muted">Actual realized P&amp;L (Green = Profit, Red = Loss).</p>
+      </div>
+      <div id="finMonthlyBars" class="category-bars"></div>
+    </article>
+  </section>
+
+  <section class="report-grid">
+    <article class="module-panel">
+      <div class="report-card-head">
+        <h2>Flower Type Profitability (Estimated Pipeline)</h2>
+        <p class="muted" id="bestFlowerLabel">Most profitable flower loading...</p>
+      </div>
+      <div id="finFlowerBars" class="category-bars"></div>
+    </article>
+
+    <article class="module-panel">
+      <div class="report-card-head">
+        <h2>ML &amp; Dataset Transparency</h2>
+        <p class="muted">Honest evaluation of public datasets &amp; scikit-learn readiness.</p>
+      </div>
+      <div id="finMlStatusBox" class="ai-list"></div>
+    </article>
+  </section>
+
+  <!-- Configurable Ratios, Costs & Temple Reward Policy -->
+  <section class="module-panel" style="margin-top:18px">
+    <div class="panel-head">
+      <div>
+        <h2>Configurable Costs, Prices &amp; Temple Reward Policy</h2>
+        <p class="muted">Admin adjustments update backend calculations immediately (Config Version <b id="cfgVersion">1</b>).</p>
+      </div>
+    </div>
+
+    <form id="configForm">
+      <div class="waste-form-grid">
+        <div class="form-field"><label for="cfgCollection">Collection (₹/kg)</label><input id="cfgCollection" type="number" step="0.5" min="0"></div>
+        <div class="form-field"><label for="cfgTransport">Transport (₹/kg)</label><input id="cfgTransport" type="number" step="0.5" min="0"></div>
+        <div class="form-field"><label for="cfgLabour">Labour (₹/usable kg)</label><input id="cfgLabour" type="number" step="0.5" min="0"></div>
+        <div class="form-field"><label for="cfgDrying">Drying (₹/usable kg)</label><input id="cfgDrying" type="number" step="0.5" min="0"></div>
+        <div class="form-field"><label for="cfgPackaging">Packaging (₹/out kg)</label><input id="cfgPackaging" type="number" step="0.5" min="0"></div>
+        <div class="form-field"><label for="cfgRewardType">Temple Reward Policy</label>
+          <select id="cfgRewardType">
+            <option value="per_usable_kg">Per Usable KG (₹/kg)</option>
+            <option value="revenue_share_pct">Net Profit Share (%)</option>
+            <option value="hybrid">Hybrid (₹/kg + % Share)</option>
+          </select>
+        </div>
+        <div class="form-field"><label for="cfgRewardPerKg">Reward Rate (₹/kg)</label><input id="cfgRewardPerKg" type="number" step="0.5" min="0"></div>
+        <div class="form-field"><label for="cfgRewardPct">Profit Share (%)</label><input id="cfgRewardPct" type="number" step="0.5" min="0" max="50"></div>
+        <div class="form-field"><label for="cfgIncensePrice">Incense Price (₹/kg)</label><input id="cfgIncensePrice" type="number" step="1" min="0"></div>
+        <div class="form-field"><label for="cfgCompostPrice">Compost Price (₹/kg)</label><input id="cfgCompostPrice" type="number" step="1" min="0"></div>
+        <div class="form-field"><label for="cfgVermiPrice">Vermicompost Price (₹/kg)</label><input id="cfgVermiPrice" type="number" step="1" min="0"></div>
+        <div class="form-field"><label for="cfgColoursPrice">Herbal Gulal Price (₹/kg)</label><input id="cfgColoursPrice" type="number" step="1" min="0"></div>
+      </div>
+      <div class="modal-footer">
+        <button type="submit" class="primary-small">Save Backend Configuration</button>
+      </div>
+    </form>
+  </section>
+
+  <!-- Temple Reward & Financial Transactions -->
+  <section class="module-panel report-table-panel">
+    <div class="panel-head">
+      <div>
+        <h2>Temple Financial Transactions &amp; Reward Settlements</h2>
+        <p class="muted">Estimated contributions remain Yellow until settled as Paid (Green) by Admin.</p>
+      </div>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Tx ID / Request</th>
+            <th>Temple</th>
+            <th>Waste / Product</th>
+            <th>Est. Revenue</th>
+            <th>FlowerCycle P/L</th>
+            <th>Temple Reward</th>
+            <th>Status</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody id="finTxRows"></tbody>
+      </table>
+    </div>
+  </section>
+
+  <p class="form-note" id="finDisclaimer" style="margin-top:16px"></p>
+</main>
+
+<div class="toast" id="finToast"></div>
+<script src="js/api.js"></script><script src="js/financial-analytics.js"></script><script src="js/ui-3d.js"></script>
+</body>
+</html>
