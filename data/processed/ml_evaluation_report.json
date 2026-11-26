@@ -1,0 +1,56 @@
+{
+  "evaluatedAt": "2026-11-27T00:34:45.118358",
+  "publicCompostDataset": {
+    "source": "github.com/hafsa-kibria/Compost-Dataset (Compost Data.csv)",
+    "rows": 452,
+    "columns": [
+      "Day",
+      "Temperature",
+      "MC(%)",
+      "pH",
+      "C/N Ratio",
+      "Ammonia(mg/kg)",
+      "Nitrate(mg/kg)",
+      "TN(%)",
+      "TOC(%)",
+      "EC(ms/cm)",
+      "OM(%)",
+      "T Value",
+      "GI(%)",
+      "Score"
+    ],
+    "targetEvaluated": "Compost Maturity Score (GI/physicochemical index)",
+    "trainRows": 361,
+    "testRows": 91,
+    "models": {
+      "LinearRegression": {
+        "r2": 0.6698,
+        "mae": 6.92,
+        "rmse": 9.5285
+      },
+      "RandomForestRegressor": {
+        "r2": 0.8094,
+        "mae": 4.3614,
+        "rmse": 7.2394
+      }
+    },
+    "featureImportances": {
+      "Day": 0.3746,
+      "MC(%)": 0.3211,
+      "C/N Ratio": 0.1465,
+      "TN(%)": 0.0514,
+      "TOC(%)": 0.0356,
+      "EC(ms/cm)": 0.0314,
+      "Temperature": 0.025,
+      "pH": 0.0145
+    },
+    "limitation": "Predicts compost maturity chemistry (Score) from lab sensors, not flower species dry-matter conversion, incense/gulal yield, or INR financial profit."
+  },
+  "financialYieldMLSuitability": {
+    "isSuitableForProductionFinancialML": false,
+    "referenceTableRows": 15,
+    "recommendedProductionEngine": "Validated Rule-Based Conversion & P&L Engine",
+    "reason": "No public empirical dataset contains paired temple flower species, moisture condition, contamination %, processing method, finished product output (incense/compost/gulal/decor), and actual Indian INR costs/sales across >=100 real batches. Training ML on small rule-generated or synthetic rows would cause circular data leakage and misleading confidence.",
+    "futureMLArchitectureReady": "FlowerCycle stores every verified batch in MongoDB (CalculationHistory + WasteRecord + FinancialTransaction). Once >=100 real verified processing batches are accumulated, ml/evaluate_dataset.py can be re-run to train scikit-learn yield & cost regressors."
+  }
+}
