@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Smart Waste-to-Wealth Calculator | FlowerCycle</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="home-body">
+
+<header class="site-header">
+  <a class="brand" href="index.html">
+    <span class="brand-mark">✿</span>
+    <span>Flower<span class="brand-accent">Cycle</span><small>WASTE TO WORTH</small></span>
+  </a>
+  <button class="menu-toggle" id="menuToggle" aria-label="Toggle navigation">☰</button>
+  <nav id="mainNav">
+    <a href="index.html">Home</a>
+    <a class="active" href="calculator.html">Calculator</a>
+    <a href="index.html#how-it-works">How It Works</a>
+    <a href="shop.html">Shop</a>
+    <a href="index.html#products">Eco-Products</a>
+    <a href="login.html" id="navDashboard">Dashboard</a>
+    <div class="nav-actions">
+      <a class="nav-login" href="login.html">Login</a>
+      <a class="nav-register" href="temple-register.html">Register</a>
+    </div>
+  </nav>
+</header>
+
+<main class="calc-page-main">
+  <section class="calc-hero-head">
+    <span class="eyebrow"><span class="dot"></span> Interactive Profit &amp; Loss Simulator</span>
+    <h1>Smart <em>Waste-to-Wealth</em> Calculator</h1>
+    <p>Simulate real-world conversion yields, moisture losses, operating expenses, temple rewards, and net profit/loss using our backend scientific &amp; financial engine.</p>
+  </section>
+
+  <section class="calc-layout">
+    <!-- Left: Interactive Simulator Controls -->
+    <article class="module-panel calc-form-panel">
+      <div class="panel-head">
+        <div>
+          <h2>Enter Flower Waste Details</h2>
+          <p class="muted">Adjust inputs to compute instant backend estimates.</p>
+        </div>
+      </div>
+
+      <form id="simForm">
+        <div class="form-field">
+          <label for="simFlower">Flower type</label>
+          <select id="simFlower" required>
+            <option value="Marigold">Marigold</option>
+            <option value="Rose">Rose</option>
+            <option value="Jasmine">Jasmine</option>
+            <option value="Lotus">Lotus</option>
+            <option value="Mixed Flowers">Mixed Flowers</option>
+          </select>
+        </div>
+
+        <div class="form-field">
+          <label for="simQuantity">Waste quantity (kg)</label>
+          <input id="simQuantity" type="number" min="0.5" max="100000" step="0.5" value="10" required>
+        </div>
+
+        <div class="form-field">
+          <label for="simCondition">Waste condition</label>
+          <select id="simCondition" required>
+            <option value="Fresh">Fresh (80–85% moisture)</option>
+            <option value="Partially Dry">Partially Dry (~45% moisture)</option>
+            <option value="Fully Dry">Fully Dry (~10% moisture)</option>
+          </select>
+        </div>
+
+        <div class="form-field">
+          <label for="simContam">Contamination (%) — <b id="simContamLabel">5%</b></label>
+          <input id="simContam" type="range" min="0" max="50" step="1" value="5">
+        </div>
+
+        <button type="submit" class="btn btn-primary full">Calculate Waste-to-Wealth →</button>
+      </form>
+
+      <div class="report-note" style="margin-top:18px;margin-bottom:0">
+        <span>ⓘ</span>
+        <span id="simEngineInfo">Engine: Validated Rule-Based Model (CSIR-NBRI / ICAR / MSME benchmarks).</span>
+      </div>
+    </article>
+
+    <!-- Right: Instant Results -->
+    <div class="calc-results-col">
+      <section class="fin-kpi-grid">
+        <article class="waste-stat">
+          <span>1. Usable Flower Waste</span>
+          <strong id="resUsable">0 kg</strong>
+          <small class="stat-foot" id="resDryMatter">Dry powder: 0 kg</small>
+        </article>
+        <article class="waste-stat">
+          <span>2. Product Output</span>
+          <strong id="resOutput">0 kg</strong>
+          <small class="stat-foot" id="resProductName">—</small>
+        </article>
+        <article class="waste-stat">
+          <span>3. Est. Selling Revenue</span>
+          <strong id="resRevenue" class="fin-yellow">₹0</strong>
+          <small class="stat-foot" id="resRevRange">Confidence range: —</small>
+        </article>
+        <article class="waste-stat">
+          <span>4. Total Processing Costs</span>
+          <strong id="resExpenses" class="fin-red">₹0</strong>
+          <small class="stat-foot" id="resCostSplit">Direct + Logistics</small>
+        </article>
+        <article class="waste-stat">
+          <span>5. Temple Reward (Est.)</span>
+          <strong id="resReward" class="fin-yellow">₹0</strong>
+          <small class="stat-foot">Configurable reward policy</small>
+        </article>
+        <article class="waste-stat">
+          <span>6. FlowerCycle Net Profit</span>
+          <strong id="resNetProfit" class="fin-green">₹0</strong>
+          <small class="stat-foot" id="resMargin">Margin: 0%</small>
+        </article>
+      </section>
+
+      <!-- Mass Balance & Expense Details -->
+      <article class="module-panel" style="margin-top:18px">
+        <div class="panel-head">
+          <div>
+            <h2>Mass Balance &amp; Cost Breakdown</h2>
+            <p class="muted" id="resPriceMeta">Source &amp; date loading...</p>
+          </div>
+          <span class="status pending">Estimated Simulation</span>
+        </div>
+
+        <div class="fin-break-grid" id="resMassAndCost"></div>
+
+        <p class="form-note" id="resDisclaimer" style="margin-top:14px"></p>
+      </article>
+
+      <!-- Comparison Across All 5 Products -->
+      <article class="module-panel" style="margin-top:18px">
+        <div class="panel-head">
+          <div>
+            <h2>All 5 Product Conversion Pathways Compared</h2>
+            <p class="muted">Compare output, revenue, total expenses, temple reward, and FlowerCycle profit across all products.</p>
+          </div>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Product</th>
+                <th>Output</th>
+                <th>Est. Revenue (Range)</th>
+                <th>Total Costs</th>
+                <th>Temple Reward</th>
+                <th>FlowerCycle P/L</th>
+              </tr>
+            </thead>
+            <tbody id="resCompareTable"></tbody>
+          </table>
+        </div>
+      </article>
+    </div>
+  </section>
+</main>
+
+<div class="toast" id="calcToast"></div>
+<script src="js/api.js"></script><script src="js/main.js"></script><script src="js/calculator.js"></script><script src="js/ui-3d.js"></script>
+</body>
+</html>
