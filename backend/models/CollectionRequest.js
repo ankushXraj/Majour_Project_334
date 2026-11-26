@@ -19,12 +19,35 @@ const collectionRequestSchema = new mongoose.Schema(
     flower: {
       type: String,
       required: [true, "Flower type is required"],
-      enum: ["Marigold", "Rose", "Jasmine", "Mixed", "Other"],
+      enum: ["Marigold", "Rose", "Jasmine", "Lotus", "Mixed", "Mixed Flowers", "Other"],
     },
     quantity: {
       type: Number,
       required: [true, "Quantity is required"],
       min: [0.1, "Quantity must be at least 0.1 kg"],
+    },
+    condition: {
+      type: String,
+      enum: ["Fresh", "Partially Dry", "Fully Dry"],
+      default: "Fresh",
+    },
+    contaminationPct: {
+      type: Number,
+      min: 0,
+      max: 95,
+      default: 5,
+    },
+    preferredMethod: {
+      type: String,
+      enum: [
+        "auto_best",
+        "natural_incense",
+        "organic_compost",
+        "vermicompost",
+        "natural_colours",
+        "decorative_items",
+      ],
+      default: "auto_best",
     },
     date: {
       type: String,
@@ -54,6 +77,11 @@ const collectionRequestSchema = new mongoose.Schema(
       type: String,
       enum: ["admin", "templePortal"],
       default: "admin",
+    },
+    // Backend-calculated financial estimate snapshot (never trust client calculations)
+    financialEstimate: {
+      type: mongoose.Schema.Types.Mixed,
+      default: null,
     },
   },
   { timestamps: true }
