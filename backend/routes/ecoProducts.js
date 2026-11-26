@@ -57,13 +57,16 @@ router.post(
         return res.status(400).json({ success: false, errors: errors.array() });
       }
 
-      const { name, category, quantity, price, date, description } = req.body;
+      const { name, category, quantity, price, costPrice, soldQuantity, wasteUsedKg, date, description } = req.body;
 
       const product = await EcoProduct.create({
         name,
         category,
         quantity,
         price,
+        costPrice: costPrice !== undefined ? Number(costPrice) : Math.round(Number(price) * 0.45),
+        soldQuantity: soldQuantity !== undefined ? Number(soldQuantity) : 0,
+        wasteUsedKg: wasteUsedKg !== undefined ? Number(wasteUsedKg) : 0,
         date,
         description: description || "",
       });
@@ -83,7 +86,7 @@ router.put("/:id", protect, authorize("admin", "processing"), async (req, res) =
       return res.status(404).json({ success: false, message: "Product not found" });
     }
 
-    const updatable = ["name", "category", "quantity", "price", "date", "description"];
+    const updatable = ["name", "category", "quantity", "price", "costPrice", "soldQuantity", "wasteUsedKg", "date", "description"];
     updatable.forEach((key) => {
       if (req.body[key] !== undefined) product[key] = req.body[key];
     });
