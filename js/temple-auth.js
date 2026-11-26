@@ -1,5 +1,15 @@
-// ── Temple Auth (Registration & Login) ─────────────────────
+// ── Temple & Portal Auth (Registration & Login) ────────────
 const $ = (id) => document.getElementById(id);
+
+async function syncGuestCartIfAny() {
+  try {
+    const raw = JSON.parse(localStorage.getItem("fcShopCart") || "[]");
+    if (Array.isArray(raw) && raw.length > 0 && typeof api.mergeCart === "function") {
+      await api.mergeCart(raw);
+      localStorage.removeItem("fcShopCart");
+    }
+  } catch {}
+}
 
 // ── Registration ──────────────────────────────────────────
 const registerForm = $("templeRegisterForm");
@@ -22,6 +32,7 @@ if (registerForm) {
     try {
       const result = await api.register(userData);
       api.saveAuth(result.token, result.user);
+      await syncGuestCartIfAny();
       msgEl.textContent = "Registration successful. Opening your temple dashboard...";
       msgEl.style.color = "#236b45";
       setTimeout(() => (location.href = "temple-dashboard.html"), 600);
@@ -45,15 +56,25 @@ if (loginForm) {
     try {
       const result = await api.login(email, password, role);
       api.saveAuth(result.token, result.user);
+      await syncGuestCartIfAny();
 
       msgEl.textContent = "Login successful. Redirecting...";
       msgEl.style.color = "#236b45";
 
-      // Redirect based on role
+      const params = new URLSearchParams(location.search);
+      const redirect = params.get("redirect");
+
       setTimeout(() => {
+        if (redirect && /^[a-z0-9\-_.]+\.html$/i.test(redirect)) {
+          location.href = redirect;
+          return;
+        }
         switch (result.user.role) {
           case "temple":
             location.href = "temple-dashboard.html";
+            break;
+          case "customer":
+            location.href = "shop.html";
             break;
           case "collection":
             location.href = "collection-team.html";
