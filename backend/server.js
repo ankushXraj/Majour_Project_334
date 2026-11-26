@@ -10,8 +10,45 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+// Block access to backend source files via static middleware
+app.use("/backend", (req, res) => {
+  res.status(403).json({ success: false, message: "Forbidden" });
+});
+
 // Serve frontend static files
 app.use(express.static(path.join(__dirname, "..")));
+
+// ── Public aggregate stats for homepage ────────────────────
+app.get("/api/public-stats", async (req, res) => {
+  try {
+    const User = require("./models/User");
+    const CollectionRequest = require("./models/CollectionRequest");
+    const WasteRecord = require("./models/WasteRecord");
+    const EcoProduct = require("./models/EcoProduct");
+
+    const [templesConnected, requestsCompleted, waste, products] = await Promise.all([
+      User.countDocuments({ role: "temple" }),
+      CollectionRequest.countDocuments({ status: { $in: ["Collected", "Processing", "Completed"] } }),
+      WasteRecord.find().select("received"),
+      EcoProduct.find().select("quantity"),
+    ]);
+
+    const flowersRecycled = waste.reduce((sum, r) => sum + Number(r.received || 0), 0);
+    const productsCreated = products.reduce((sum, p) => sum + Number(p.quantity || 0), 0);
+
+    res.json({
+      success: true,
+      data: {
+        flowersRecycled,
+        templesConnected,
+        requestsCompleted,
+        productsCreated,
+      },
+    });
+  } catch (err) {
+    res.status(500).json({ success: false, message: "Could not load public stats" });
+  }
+});
 
 // ── API Routes ─────────────────────────────────────────────
 app.use("/api/auth", require("./routes/auth"));
@@ -34,17 +71,33 @@ app.use((err, req, res, next) => {
 });
 
 // ── Connect to MongoDB and start server ────────────────────
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 3000;
 
-mongoose
-  .connect(process.env.MONGO_URI)
-  .then(() => {
-    console.log("✅ Connected to MongoDB");
-    app.listen(PORT, () => {
-      console.log(`🌸 FlowerCycle server running on http://localhost:${PORT}`);
+async function startServer() {
+  try {
+    await mongoose.connect(process.env.MONGO_URI, {
+      serverSelectionTimeoutMS: 2000,
     });
-  })
-  .catch((err) => {
-    console.error("❌ MongoDB connection error:", err.message);
-    process.exit(1);
+    console.log("✅ Connected to MongoDB");
+  } catch (err) {
+    console.warn("⚠️  Local MongoDB not available, starting in-memory MongoDB...");
+    const { MongoMemoryServer } = require("mongodb-memory-server");
+    const mongod = await MongoMemoryServer.create();
+    const memUri = mongod.getUri();
+    await mongoose.connect(memUri);
+    console.log("✅ Connected to in-memory MongoDB");
+
+    const { seedData } = require("./seed");
+    await seedData();
+    console.log("🌱 Seeded in-memory database with sample data");
+  }
+
+  app.listen(PORT, () => {
+    console.log(`🌸 FlowerCycle server running on http://localhost:${PORT}`);
   });
+}
+
+startServer().catch((err) => {
+  console.error("❌ Startup error:", err.message);
+  process.exit(1);
+});
