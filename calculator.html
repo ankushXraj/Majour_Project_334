@@ -90,37 +90,59 @@
     <!-- Right: Instant Results -->
     <div class="calc-results-col">
       <section class="fin-kpi-grid">
-        <article class="waste-stat">
+        <article class="waste-stat product-card">
           <span>1. Usable Flower Waste</span>
           <strong id="resUsable">0 kg</strong>
           <small class="stat-foot" id="resDryMatter">Dry powder: 0 kg</small>
         </article>
-        <article class="waste-stat">
+        <article class="waste-stat product-card">
           <span>2. Product Output</span>
           <strong id="resOutput">0 kg</strong>
           <small class="stat-foot" id="resProductName">—</small>
         </article>
-        <article class="waste-stat">
+        <article class="waste-stat product-card">
           <span>3. Est. Selling Revenue</span>
           <strong id="resRevenue" class="fin-yellow">₹0</strong>
           <small class="stat-foot" id="resRevRange">Confidence range: —</small>
         </article>
-        <article class="waste-stat">
+        <article class="waste-stat product-card">
           <span>4. Total Processing Costs</span>
           <strong id="resExpenses" class="fin-red">₹0</strong>
           <small class="stat-foot" id="resCostSplit">Direct + Logistics</small>
         </article>
-        <article class="waste-stat">
+        <article class="waste-stat product-card">
           <span>5. Temple Reward (Est.)</span>
           <strong id="resReward" class="fin-yellow">₹0</strong>
           <small class="stat-foot">Configurable reward policy</small>
         </article>
-        <article class="waste-stat">
+        <article class="waste-stat product-card fin-kpi-highlight">
           <span>6. FlowerCycle Net Profit</span>
           <strong id="resNetProfit" class="fin-green">₹0</strong>
           <small class="stat-foot" id="resMargin">Margin: 0%</small>
         </article>
       </section>
+
+      <!-- Visual Breakdown Meter -->
+      <article class="module-panel" style="margin-top:18px">
+        <div class="panel-head">
+          <div>
+            <h2>Floral Mass Distribution Meter</h2>
+            <p class="muted">Visual mass balance: Moisture vs. Dry Floral Bio-Matter vs. Contamination.</p>
+          </div>
+        </div>
+        <div class="waste-breakdown-bar" style="display:flex;height:24px;border-radius:12px;overflow:hidden;box-shadow:inset 0 2px 4px rgba(0,0,0,0.1);background:#e4e9e4;margin:12px 0 8px 0">
+          <div id="barDry" style="background:#2da668;width:15%;transition:width 0.6s ease" title="Dry Bio-Matter"></div>
+          <div id="barMoisture" style="background:#4a90e2;width:75%;transition:width 0.6s ease" title="Moisture Loss"></div>
+          <div id="barContam" style="background:#e59a32;width:5%;transition:width 0.6s ease" title="Contamination"></div>
+          <div id="barReject" style="background:#d9534f;width:5%;transition:width 0.6s ease" title="Handling Loss"></div>
+        </div>
+        <div style="display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;font-size:11.5px;color:var(--muted)">
+          <span><b style="color:#2da668">■</b> Dry Floral Yield (<span id="pctDry">15%</span>)</span>
+          <span><b style="color:#4a90e2">■</b> Moisture Loss (<span id="pctMoisture">75%</span>)</span>
+          <span><b style="color:#e59a32">■</b> Contamination (<span id="pctContam">5%</span>)</span>
+          <span><b style="color:#d9534f">■</b> Handling Rejection (<span id="pctReject">5%</span>)</span>
+        </div>
+      </article>
 
       <!-- Mass Balance & Expense Details -->
       <article class="module-panel" style="margin-top:18px">
@@ -166,6 +188,6 @@
 </main>
 
 <div class="toast" id="calcToast"></div>
-<script src="js/api.js"></script><script src="js/main.js"></script><script src="js/calculator.js"></script><script src="js/ui-3d.js"></script>
+<script src="js/api.js"></script><script src="js/main.js"></script><script src="js/calculator.js"></script><script src="js/ui-3d.js"></script><script src="js/motion.js"></script>
 </body>
 </html>
