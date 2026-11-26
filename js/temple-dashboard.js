@@ -271,4 +271,29 @@ $("templeLogout").addEventListener("click", () => {
   location.href = "login.html";
 });
 
+async function renderTempleOrders() {
+  const rowsEl = $("templeOrderRows");
+  const emptyEl = $("templeOrdersEmpty");
+  if (!rowsEl) return;
+  try {
+    const res = await api.getOrders();
+    const orders = res.data || [];
+    emptyEl.hidden = orders.length > 0;
+    rowsEl.innerHTML = orders
+      .map(
+        (o) => `<tr>
+          <td><b>${esc(o.orderId)}</b><br><small class="muted">${new Date(o.createdAt).toLocaleDateString("en-IN")}</small></td>
+          <td>${o.items.map((i) => `${esc(i.name)} (${esc(i.packSize)}) × ${i.quantity}`).join(", ")}</td>
+          <td><b class="fin-green">${money(o.totalAmountINR)}</b></td>
+          <td><small>${esc(o.paymentMethod)}</small></td>
+          <td><span class="status collected">${esc(o.orderStatus)}</span></td>
+        </tr>`
+      )
+      .join("");
+  } catch {
+    emptyEl.hidden = false;
+  }
+}
+
 render();
+renderTempleOrders();
