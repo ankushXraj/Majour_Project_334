@@ -11,6 +11,8 @@ const { protect, authorize } = require("../middleware/auth");
 const DELIVERY_FREE_THRESHOLD = 499;
 const STANDARD_DELIVERY_CHARGE = 49;
 
+const defaultShopCatalog = require("../models/defaultShopCatalog");
+
 // Resolve authoritative price for a product + packSize from MongoDB
 function resolveUnitPrice(product, requestedPackSize) {
   if (Array.isArray(product.sizeOptions) && product.sizeOptions.length > 0 && requestedPackSize) {
@@ -24,61 +26,97 @@ function resolveUnitPrice(product, requestedPackSize) {
 
 // GET /api/shop/products
 router.get("/products", async (req, res) => {
+  const { category, variant, search, sort, includeDisabled } = req.query;
+  let products = [];
+
   try {
-    const { category, variant, search, sort, includeDisabled } = req.query;
-    const filter = {};
+    const mongoose = require("mongoose");
+    if (mongoose.connection && mongoose.connection.readyState === 1) {
+      const filter = {};
+      if (includeDisabled !== "true") filter.isActive = true;
+      if (category && category !== "all") filter.category = category;
+      if (variant && variant !== "all") filter.variant = variant;
+      if (search && search.trim()) {
+        const rx = new RegExp(search.trim(), "i");
+        filter.$or = [
+          { name: rx },
+          { category: rx },
+          { variant: rx },
+          { description: rx },
+        ];
+      }
 
-    if (includeDisabled !== "true") {
-      filter.isActive = true;
-    }
-    if (category && category !== "all") {
-      filter.category = category;
-    }
-    if (variant && variant !== "all") {
-      filter.variant = variant;
-    }
-    if (search && search.trim()) {
-      const rx = new RegExp(search.trim(), "i");
-      filter.$or = [
-        { name: rx },
-        { category: rx },
-        { variant: rx },
-        { description: rx },
-      ];
-    }
+      let sortObj = { createdAt: 1 };
+      if (sort === "price_asc") sortObj = { price: 1 };
+      else if (sort === "price_desc") sortObj = { price: -1 };
+      else if (sort === "newest") sortObj = { createdAt: -1 };
 
-    let sortObj = { createdAt: 1 };
-    if (sort === "price_asc") sortObj = { price: 1 };
-    else if (sort === "price_desc") sortObj = { price: -1 };
-    else if (sort === "newest") sortObj = { createdAt: -1 };
+      products = await ShopProduct.find(filter).sort(sortObj);
 
-    const products = await ShopProduct.find(filter).sort(sortObj);
-    res.json({
-      success: true,
-      count: products.length,
-      deliveryConfig: {
-        freeThresholdINR: DELIVERY_FREE_THRESHOLD,
-        standardChargeINR: STANDARD_DELIVERY_CHARGE,
-        note: "Demo pricing & illustrative delivery charge estimate",
-      },
-      data: products,
-    });
-  } catch (error) {
-    res.status(500).json({ success: false, message: error.message });
+      // If database is connected but has 0 products, auto-seed the shop catalog
+      if (products.length === 0 && Array.isArray(defaultShopCatalog) && defaultShopCatalog.length > 0) {
+        await ShopProduct.create(defaultShopCatalog);
+        products = await ShopProduct.find(filter).sort(sortObj);
+      }
+    }
+  } catch (dbErr) {
+    console.warn("MongoDB fetch notice for shop products:", dbErr.message);
   }
+
+  // Graceful fallback to default catalog if DB is offline or empty
+  if (!products || products.length === 0) {
+    products = (defaultShopCatalog || []).filter((p) => {
+      if (category && category !== "all" && p.category !== category) return false;
+      if (variant && variant !== "all" && p.variant !== variant) return false;
+      if (search && search.trim()) {
+        const q = search.trim().toLowerCase();
+        const match =
+          (p.name || "").toLowerCase().includes(q) ||
+          (p.category || "").toLowerCase().includes(q) ||
+          (p.variant || "").toLowerCase().includes(q) ||
+          (p.description || "").toLowerCase().includes(q);
+        if (!match) return false;
+      }
+      return true;
+    });
+
+    if (sort === "price_asc") {
+      products.sort((a, b) => a.price - b.price);
+    } else if (sort === "price_desc") {
+      products.sort((a, b) => b.price - a.price);
+    }
+  }
+
+  res.json({
+    success: true,
+    count: products.length,
+    deliveryConfig: {
+      freeThresholdINR: DELIVERY_FREE_THRESHOLD,
+      standardChargeINR: STANDARD_DELIVERY_CHARGE,
+      note: "Demo pricing & illustrative delivery charge estimate",
+    },
+    data: products,
+  });
 });
 
 // GET /api/shop/products/:id
 router.get("/products/:id", async (req, res) => {
   try {
-    const product = await ShopProduct.findById(req.params.id);
-    if (!product) {
-      return res.status(404).json({ success: false, message: "Product not found" });
+    const mongoose = require("mongoose");
+    if (mongoose.connection && mongoose.connection.readyState === 1) {
+      const product = await ShopProduct.findById(req.params.id);
+      if (product) return res.json({ success: true, data: product });
     }
-    res.json({ success: true, data: product });
-  } catch (error) {
-    res.status(500).json({ success: false, message: error.message });
+  } catch (e) {}
+
+  const match = (defaultShopCatalog || []).find(
+    (p) => String(p.productId) === String(req.params.id) || String(p._id) === String(req.params.id)
+  );
+  if (match) {
+    return res.json({ success: true, data: match });
   }
+
+  res.status(404).json({ success: false, message: "Product not found" });
 });
 
 // ── Admin Product & Image Management ────────────────────────
