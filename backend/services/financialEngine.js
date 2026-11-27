@@ -1,16 +1,24 @@
+const mongoose = require("mongoose");
 const FinancialConfig = require("../models/FinancialConfig");
 
 const round2 = (n) => Math.round((Number(n) || 0) * 100) / 100;
 
 /**
- * Retrieve active FinancialConfig from MongoDB, creating default if missing.
+ * Retrieve active FinancialConfig from MongoDB, with resilient schema default fallback.
  */
 async function getActiveConfig() {
-  let cfg = await FinancialConfig.findOne({ configKey: "default" });
-  if (!cfg) {
-    cfg = await FinancialConfig.create({ configKey: "default" });
+  try {
+    if (mongoose.connection && mongoose.connection.readyState === 1) {
+      let cfg = await FinancialConfig.findOne({ configKey: "default" });
+      if (!cfg) {
+        cfg = await FinancialConfig.create({ configKey: "default" });
+      }
+      return cfg;
+    }
+  } catch (err) {
+    console.warn("Using default financial config parameters (DB not ready):", err.message);
   }
-  return cfg;
+  return new FinancialConfig({ configKey: "default" });
 }
 
 /**

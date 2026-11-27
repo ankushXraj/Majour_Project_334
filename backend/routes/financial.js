@@ -34,32 +34,39 @@ router.post("/simulate", async (req, res) => {
       config
     );
 
-    // Log simulator run in CalculationHistory
-    await CalculationHistory.create({
-      source: "simulator",
-      configVersion: config.version,
-      input: {
-        flowerType: result.inputSummary.flowerType,
-        quantityKg: result.inputSummary.totalWasteKg,
-        condition: result.inputSummary.condition,
-        contaminationPct: result.inputSummary.contaminationPct,
-        processingMethod: result.inputSummary.requestedMethod,
-        date: new Date().toISOString().slice(0, 10),
-      },
-      output: {
-        usableWasteKg: result.massBalance.usableWasteKg,
-        dryFloralKg: result.massBalance.dryFloralKg,
-        selectedProductKey: result.selected.productKey,
-        selectedProductName: result.selected.productName,
-        estimatedOutputKg: result.selected.estimatedOutputKg,
-        estimatedRevenueINR: result.selected.totalRevenueINR,
-        totalExpensesINR: result.selected.totalExpensesINR,
-        grossProfitINR: result.selected.grossProfitINR,
-        netProfitINR: result.selected.netProfitINR,
-        templeRewardINR: result.selected.templeRewardINR,
-        flowercycleProfitINR: result.selected.flowercycleProfitINR,
-      },
-    });
+    // Log simulator run in CalculationHistory if DB is connected
+    try {
+      const mongoose = require("mongoose");
+      if (mongoose.connection && mongoose.connection.readyState === 1) {
+        await CalculationHistory.create({
+          source: "simulator",
+          configVersion: config.version,
+          input: {
+            flowerType: result.inputSummary.flowerType,
+            quantityKg: result.inputSummary.totalWasteKg,
+            condition: result.inputSummary.condition,
+            contaminationPct: result.inputSummary.contaminationPct,
+            processingMethod: result.inputSummary.requestedMethod,
+            date: new Date().toISOString().slice(0, 10),
+          },
+          output: {
+            usableWasteKg: result.massBalance.usableWasteKg,
+            dryFloralKg: result.massBalance.dryFloralKg,
+            selectedProductKey: result.selected.productKey,
+            selectedProductName: result.selected.productName,
+            estimatedOutputKg: result.selected.estimatedOutputKg,
+            estimatedRevenueINR: result.selected.totalRevenueINR,
+            totalExpensesINR: result.selected.totalExpensesINR,
+            grossProfitINR: result.selected.grossProfitINR,
+            netProfitINR: result.selected.netProfitINR,
+            templeRewardINR: result.selected.templeRewardINR,
+            flowercycleProfitINR: result.selected.flowercycleProfitINR,
+          },
+        });
+      }
+    } catch (logErr) {
+      console.warn("Simulator history logging skipped:", logErr.message);
+    }
 
     res.json({ success: true, data: result });
   } catch (error) {

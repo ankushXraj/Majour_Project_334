@@ -17,6 +17,10 @@ let isConnected = false;
 
 async function connectToDatabase() {
   if (isConnected && mongoose.connection.readyState === 1) return;
+  if (!process.env.MONGO_URI) {
+    console.warn("⚠️ MONGO_URI is not set in environment variables");
+    return;
+  }
 
   mongoose.set("bufferCommands", false);
 
@@ -29,18 +33,16 @@ async function connectToDatabase() {
   console.log("✅ MongoDB connected (serverless)");
 }
 
-// Ensure DB is connected before every request
+// Attempt DB connection on API requests, but allow fallback for offline-safe endpoints
 app.use(async (req, res, next) => {
-  try {
-    await connectToDatabase();
-    next();
-  } catch (err) {
-    console.error("❌ DB connection error:", err.message);
-    return res.status(500).json({
-      success: false,
-      message: "Database connection failed. Please try again.",
-    });
+  if (req.path.startsWith("/api") && req.path !== "/api/health") {
+    try {
+      await connectToDatabase();
+    } catch (err) {
+      console.warn("⚠️ MongoDB connection notice:", err.message);
+    }
   }
+  next();
 });
 
 // ── Public aggregate stats (from server.js) ────────────────────
